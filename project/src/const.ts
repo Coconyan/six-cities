@@ -4,3 +4,9 @@ export enum AppRoute {
   Room = '/room',
   Root = '/'
 }
+
+export enum AuthorizationStatus {
+  Auth = 'AUTH',
+  NoAuth = 'NO_AUTH',
+  Unknown = 'UNKNOWN',
+}
