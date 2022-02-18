@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import Logo from '../../components/logo/logo';
 
-function NotFoundScreen(): JSX.Element {
+function NotFoundPage(): JSX.Element {
   return (
     <div className="page page--gray page--login">
       <header className="header">
@@ -32,4 +32,4 @@ function NotFoundScreen(): JSX.Element {
   );
 }
 
-export default NotFoundScreen;
+export default NotFoundPage;

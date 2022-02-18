@@ -1,11 +1,11 @@
 import Logo from '../../components/logo/logo';
 import PlaceCard from '../../components/place-card/place-card';
 
-type MainScreenProps = {
+type MainPageProps = {
   cardsCount: number;
 }
 
-function MainScreen({cardsCount}: MainScreenProps): JSX.Element {
+function MainPage({cardsCount}: MainPageProps): JSX.Element {
   return (
     <div className="page page--gray page--main">
       <header className="header">
@@ -105,4 +105,4 @@ function MainScreen({cardsCount}: MainScreenProps): JSX.Element {
   );
 }
 
-export default MainScreen;
+export default MainPage;

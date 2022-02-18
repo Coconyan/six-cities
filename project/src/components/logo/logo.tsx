@@ -5,10 +5,7 @@ type LogoProps = {
 }
 
 function Logo({isMain}: LogoProps): JSX.Element {
-  let className = 'header__logo-link';
-  if (isMain) {
-    className += 'header__logo-link--active';
-  }
+  const className = `header__logo-link${isMain && '--active'}`;
 
   return (
     <Link className={className}  to="/">

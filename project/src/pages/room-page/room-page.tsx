@@ -1,6 +1,6 @@
 import Logo from '../../components/logo/logo';
 
-function RoomScreen(): JSX.Element {
+function RoomPage(): JSX.Element {
   return (
     <div className="page">
       <header className="header">
@@ -328,4 +328,4 @@ function RoomScreen(): JSX.Element {
   );
 }
 
-export default RoomScreen;
+export default RoomPage;
