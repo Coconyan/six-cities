@@ -1,5 +1,6 @@
 import { Route, BrowserRouter, Routes } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../../const';
+import { Offer } from '../../types/offer';
 import FavoritesPage from '../../pages/favorites-page/favorites-page';
 import MainPage from '../../pages/main-page/main-page';
 import NotFoundPage from '../../pages/not-found-page/not-found-page';
@@ -9,15 +10,21 @@ import PrivateRoute from '../private-route/private-route';
 
 type PropsType = {
   cardsCount: number;
+  offers: Offer[];
 }
 
-function App({cardsCount}: PropsType): JSX.Element {
+function App({cardsCount, offers}: PropsType): JSX.Element {
   return (
     <BrowserRouter>
       <Routes>
         <Route
           path={AppRoute.Root}
-          element={<MainPage cardsCount={cardsCount} />}
+          element={
+            <MainPage
+              cardsCount={cardsCount}
+              offers={offers}
+            />
+          }
         />
         <Route
           path={AppRoute.Favorites}
