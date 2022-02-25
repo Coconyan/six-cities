@@ -1,13 +1,13 @@
+import ListCards from '../../components/list-cards/list-cards';
 import Logo from '../../components/logo/logo';
-import PlaceCard from '../../components/place-card/place-card';
+//import PlaceCard from '../../components/place-card/place-card';
 import { Offer } from '../../types/offer';
 
 type PropsType = {
-  cardsCount: number;
   offers: Offer[];
 }
 
-function MainPage({cardsCount, offers}: PropsType): JSX.Element {
+function MainPage({offers}: PropsType): JSX.Element {
   return (
     <div className="page page--gray page--main">
       <header className="header">
@@ -94,12 +94,7 @@ function MainPage({cardsCount, offers}: PropsType): JSX.Element {
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                {offers.map((offer) => (
-                  <PlaceCard
-                    key={offer.id}
-                    offer={offer}
-                  />
-                ))}
+                {<ListCards offers={offers}/>}
               </div>
             </section>
             <div className="cities__right-section">

@@ -143,7 +143,7 @@ export const offers: Offer[] = [
       'https://9.react.pages.academy/static/hotel/9.jpg',
     ],
     'title': 'House in countryside',
-    'isFavorite': false,
+    'isFavorite': true,
     'isPremium': false,
     'rating': 4,
     'type': 'room',
