@@ -5,13 +5,13 @@ type PropsType = {
   comments: Comments[];
 }
 
-function RoomReviews({comments}: PropsType): JSX.Element {
+function RoomReviews({ comments }: PropsType): JSX.Element {
   return (
     <section className="property__reviews reviews">
       <h2 className="reviews__title">Reviews · <span className="reviews__amount">1</span></h2>
-      {comments.map(({user, rating, comment, date, id}) => (
-        <ul className="reviews__list" key={id}>
-          <li className="reviews__item">
+      <ul className="reviews__list">
+        {comments.map(({ user, rating, comment, date, id }) => (
+          <li className="reviews__item" key={id}>
             <div className="reviews__user user">
               <div className="reviews__avatar-wrapper user__avatar-wrapper">
                 <img className="reviews__avatar user__avatar" src="img/avatar-max.jpg" width={54} height={54} alt="Reviews avatar" />
@@ -33,8 +33,8 @@ function RoomReviews({comments}: PropsType): JSX.Element {
               <time className="reviews__time" dateTime={date}>{date.slice(0, 10)}</time>{/* todo format date */}
             </div>
           </li>
-        </ul>
-      ))}
+        ))}
+      </ul>
       <FormComments />
     </section>
   );

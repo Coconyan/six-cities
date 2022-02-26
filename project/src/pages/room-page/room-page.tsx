@@ -1,6 +1,6 @@
 import { Navigate, useParams } from 'react-router-dom';
 import Logo from '../../components/logo/logo';
-import PremiumRoomMark from '../../components/premium-room-mark/premium-room-mark';
+import PremiumMark from '../../components/premium-mark/premium-mark';
 import RoomReviews from '../../components/room-reviews/room-reviews';
 import { AppRoute } from '../../const';
 import { comments } from '../../mocks/comments';
@@ -61,7 +61,7 @@ function RoomPage({offers}: PropsType): JSX.Element {
           </div>
           <div className="property__container container">
             <div className="property__wrapper">
-              {isPremium ? <PremiumRoomMark /> : ''}
+              {isPremium ? <PremiumMark classMark='property__mark'/> : ''}
               <div className="property__name-wrapper">
                 <h1 className="property__name">
                   {title}

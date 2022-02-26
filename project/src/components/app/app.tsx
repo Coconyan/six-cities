@@ -30,7 +30,7 @@ function App({offers}: PropsType): JSX.Element {
         />
         <Route
           path={AppRoute.Room}
-          element={<RoomPage offers={offers}  />}
+          element={<RoomPage offers={offers} />}
         >
           <Route path={`${AppRoute.Room}:id`} element={<RoomPage offers={offers} />} />
         </Route>

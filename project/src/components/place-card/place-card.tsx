@@ -1,9 +1,8 @@
-//import { MouseEventHandler } from 'react';
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import { Offer } from '../../types/offer';
 import firstLetterToUpperCase from '../../utils';
-import PremiumCardMark from '../premium-card-mark/premium-card-mark';
+import PremiumMark from '../premium-mark/premium-mark';
 
 type PropsType = {
   offer: Offer;
@@ -25,7 +24,7 @@ function PlaceCard({offer, onActiveCard, activeCard}: PropsType): JSX.Element {
         onActiveCard(0);
       }}
     >
-      {isPremium ? <PremiumCardMark /> : ''}
+      {isPremium && <PremiumMark classMark='' />}
       <div className="cities__image-wrapper place-card__image-wrapper">
         <Link to={`${AppRoute.Room}/${id}`}>
           <img className="place-card__image" src={previewImage} width={260} height={200} alt={title} />
