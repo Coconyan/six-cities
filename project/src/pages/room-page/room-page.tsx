@@ -3,6 +3,7 @@ import Logo from '../../components/logo/logo';
 import PremiumRoomMark from '../../components/premium-room-mark/premium-room-mark';
 import RoomReviews from '../../components/room-reviews/room-reviews';
 import { AppRoute } from '../../const';
+import { comments } from '../../mocks/comments';
 import { Offer } from '../../types/offer';
 import firstLetterToUpperCase from '../../utils';
 
@@ -123,7 +124,7 @@ function RoomPage({offers}: PropsType): JSX.Element {
                   </p>
                 </div>
               </div>
-              <RoomReviews />
+              <RoomReviews comments={comments}/>
             </div>
           </div>
           <section className="property__map map" />

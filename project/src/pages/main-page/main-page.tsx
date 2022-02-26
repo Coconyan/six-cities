@@ -1,6 +1,5 @@
 import ListCards from '../../components/list-cards/list-cards';
 import Logo from '../../components/logo/logo';
-//import PlaceCard from '../../components/place-card/place-card';
 import { Offer } from '../../types/offer';
 
 type PropsType = {
