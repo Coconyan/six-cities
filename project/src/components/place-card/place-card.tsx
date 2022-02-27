@@ -1,18 +1,42 @@
-function PlaceCard(): JSX.Element {
+import { Link } from 'react-router-dom';
+import { AppRoute } from '../../const';
+import { Offer } from '../../types/offer';
+import firstLetterToUpperCase from '../../utils';
+import PremiumMark from '../premium-mark/premium-mark';
+
+type PropsType = {
+  offer: Offer;
+  onActiveCard: (offer: number) => void;
+  activeCard: number;
+}
+
+function PlaceCard({offer, onActiveCard, activeCard}: PropsType): JSX.Element {
+  const {previewImage, rating, price, title, type, isPremium, isFavorite, id} = offer;
+  const favoriteClassName = `place-card__bookmark-button${isFavorite ? isFavorite && '--active button' : ' button'}`;
   return (
-    <article className="cities__place-card place-card">
+    <article
+      className="cities__place-card place-card"
+      id={String(id)}
+      onMouseEnter={() => {
+        onActiveCard(offer.id);
+      }}
+      onMouseLeave={() => {
+        onActiveCard(0);
+      }}
+    >
+      {isPremium && <PremiumMark classMark='' />}
       <div className="cities__image-wrapper place-card__image-wrapper">
-        <a href="#">
-          <img className="place-card__image" src="img/room.jpg" width={260} height={200} alt="Place image" />
-        </a>
+        <Link to={`${AppRoute.Room}/${id}`}>
+          <img className="place-card__image" src={previewImage} width={260} height={200} alt={title} />
+        </Link>
       </div>
       <div className="place-card__info">
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
-            <b className="place-card__price-value">€80</b>
+            <b className="place-card__price-value">{`€${price}`}</b>
             <span className="place-card__price-text">/&nbsp;night</span>
           </div>
-          <button className="place-card__bookmark-button place-card__bookmark-button--active button" type="button">
+          <button className={favoriteClassName} type="button">
             <svg className="place-card__bookmark-icon" width={18} height={19}>
               <use xlinkHref="#icon-bookmark" />
             </svg>
@@ -21,14 +45,14 @@ function PlaceCard(): JSX.Element {
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{ width: '80%' }} />
+            <span style={{ width: `${rating * 20 }%` }} />
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
         <h2 className="place-card__name">
-          <a href="#">Wood and stone place</a>
+          <a href="#todo">{title}</a>
         </h2>
-        <p className="place-card__type">Private room</p>
+        <p className="place-card__type">{firstLetterToUpperCase(type)}</p>
       </div>
     </article>
   );
