@@ -1,11 +1,10 @@
 type PropsType = {
-  classMark: string;
+  classMark?: string;
 }
 
-function PremiumMark({classMark}: PropsType): JSX.Element {
-  const defaultClass='place-card__mark';
+function PremiumMark({classMark = 'place-card__mark'}: PropsType): JSX.Element {
   return (
-    <div className={classMark ? classMark : defaultClass}>
+    <div className={classMark}>
       <span>Premium</span>
     </div>
   );
