@@ -1,5 +1,7 @@
+import { useState } from 'react';
 import ListCards from '../../components/list-cards/list-cards';
 import Logo from '../../components/logo/logo';
+import Map from '../../components/map/map';
 import { Offer } from '../../types/offer';
 
 type PropsType = {
@@ -7,6 +9,18 @@ type PropsType = {
 }
 
 function MainPage({offers}: PropsType): JSX.Element {
+  const city = offers[0].city;
+
+  const [activeCard, setActiveCard] = useState<Offer | undefined>(
+    undefined,
+  );
+
+  const onListItemHover = (id: string) => {
+    const currentOffer = offers.find((offer) => String(offer.id) === id);
+
+    setActiveCard(currentOffer);
+  };
+
   return (
     <div className="page page--gray page--main">
       <header className="header">
@@ -93,11 +107,19 @@ function MainPage({offers}: PropsType): JSX.Element {
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                {<ListCards offers={offers}/>}
+                {<ListCards offers={offers} onListItemHover={onListItemHover}/>}
               </div>
             </section>
             <div className="cities__right-section">
-              <section className="cities__map map" />
+              <section className="cities__map map" >
+                {
+                  <Map
+                    city={city}
+                    offers={offers}
+                    activeCard={activeCard}
+                  />
+                }
+              </section>
             </div>
           </div>
         </div>
