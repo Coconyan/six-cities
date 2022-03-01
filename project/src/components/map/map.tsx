@@ -1,8 +1,20 @@
-import { useRef, useEffect } from 'react';
-import { Icon, Marker } from 'leaflet';
+import {
+  useRef,
+  useEffect
+} from 'react';
+import {
+  Icon,
+  Marker
+} from 'leaflet';
+import {
+  City,
+  Offer
+} from '../../types/offer';
+import {
+  URL_MARKER_DEFAULT,
+  URL_MARKER_CURRENT
+} from '../../const';
 import useMap from '../../hooks/useMap';
-import { City, Offer } from '../../types/offer';
-import { URL_MARKER_DEFAULT, URL_MARKER_CURRENT } from '../../const';
 import 'leaflet/dist/leaflet.css';
 
 type MapProps = {
@@ -48,7 +60,7 @@ function Map(props: MapProps): JSX.Element {
     }
   }, [map, offers, activeCard]);
 
-  return <div style={{height: '1158px'}} ref={mapRef}></div>;
+  return <div style={{height: '1158px'}} ref={mapRef} />;
 }
 
 export default Map;

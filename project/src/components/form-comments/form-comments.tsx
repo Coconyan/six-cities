@@ -1,4 +1,7 @@
-import { FormEvent, useState } from 'react';
+import {
+  FormEvent,
+  useState
+} from 'react';
 import Star from '../star/star';
 
 function FormComments(): JSX.Element {

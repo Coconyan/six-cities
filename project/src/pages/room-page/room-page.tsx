@@ -1,4 +1,7 @@
-import { Navigate, useParams } from 'react-router-dom';
+import {
+  Navigate,
+  useParams
+} from 'react-router-dom';
 import Logo from '../../components/logo/logo';
 import PremiumMark from '../../components/premium-mark/premium-mark';
 import RoomReviews from '../../components/room-reviews/room-reviews';
