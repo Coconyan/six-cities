@@ -7,29 +7,31 @@ import PremiumMark from '../premium-mark/premium-mark';
 
 type PropsType = {
   offer: Offer;
-  onListItemHover: (listItemName: string) => void;
+  onListItemHover?: (listItemName: string) => void;
+  placeCardClass?: string;
+  placeCardImageClass?: string;
 }
 
-function PlaceCard({offer, onListItemHover}: PropsType): JSX.Element {
+function PlaceCard({offer, onListItemHover, placeCardClass = '__place-card', placeCardImageClass = 'cities'}: PropsType): JSX.Element {
   const {previewImage, rating, price, title, type, isPremium, isFavorite, id} = offer;
   const favoriteClassName = `place-card__bookmark-button${isFavorite ? isFavorite && '--active button' : ' button'}`;
 
   const listItemHoverHandler = (event: MouseEvent<HTMLLIElement>) => {
     event.preventDefault();
-    onListItemHover(event.currentTarget.id);
+    onListItemHover && onListItemHover(event.currentTarget.id);
   };
 
   return (
     <article
-      className="cities__place-card place-card"
+      className={`${placeCardImageClass + placeCardClass} place-card`}
       id={String(id)}
       onMouseEnter={listItemHoverHandler}
       onMouseLeave={() => {
-        onListItemHover('0');
+        onListItemHover && onListItemHover('0');
       }}
     >
       {isPremium && <PremiumMark />}
-      <div className="cities__image-wrapper place-card__image-wrapper">
+      <div className={`${placeCardImageClass}__image-wrapper place-card__image-wrapper`}>
         <Link to={`${AppRoute.Room}/${id}`}>
           <img className="place-card__image" src={previewImage} width={260} height={200} alt={title} />
         </Link>
