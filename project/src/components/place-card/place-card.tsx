@@ -1,3 +1,4 @@
+import { MouseEvent } from 'react';
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import { Offer } from '../../types/offer';
@@ -6,25 +7,28 @@ import PremiumMark from '../premium-mark/premium-mark';
 
 type PropsType = {
   offer: Offer;
-  onActiveCard: (offer: number) => void;
-  activeCard: number;
+  onListItemHover: (listItemName: string) => void;
 }
 
-function PlaceCard({offer, onActiveCard, activeCard}: PropsType): JSX.Element {
+function PlaceCard({offer, onListItemHover}: PropsType): JSX.Element {
   const {previewImage, rating, price, title, type, isPremium, isFavorite, id} = offer;
   const favoriteClassName = `place-card__bookmark-button${isFavorite ? isFavorite && '--active button' : ' button'}`;
+
+  const listItemHoverHandler = (event: MouseEvent<HTMLLIElement>) => {
+    event.preventDefault();
+    onListItemHover(event.currentTarget.id);
+  };
+
   return (
     <article
       className="cities__place-card place-card"
       id={String(id)}
-      onMouseEnter={() => {
-        onActiveCard(offer.id);
-      }}
+      onMouseEnter={listItemHoverHandler}
       onMouseLeave={() => {
-        onActiveCard(0);
+        onListItemHover('0');
       }}
     >
-      {isPremium && <PremiumMark classMark='' />}
+      {isPremium && <PremiumMark />}
       <div className="cities__image-wrapper place-card__image-wrapper">
         <Link to={`${AppRoute.Room}/${id}`}>
           <img className="place-card__image" src={previewImage} width={260} height={200} alt={title} />

@@ -1,5 +1,12 @@
-import { Route, BrowserRouter, Routes } from 'react-router-dom';
-import { AppRoute, AuthorizationStatus } from '../../const';
+import {
+  Route,
+  BrowserRouter,
+  Routes
+} from 'react-router-dom';
+import {
+  AppRoute,
+  AuthorizationStatus
+} from '../../const';
 import { Offer } from '../../types/offer';
 import FavoritesPage from '../../pages/favorites-page/favorites-page';
 import MainPage from '../../pages/main-page/main-page';
