@@ -9,8 +9,8 @@ type PropsType = {
   placeCardImageClass?: string;
 }
 
-function ListCards({ offers, onListItemHover, placeCardClass, placeCardImageClass }: PropsType): JSX.Element {
-  const { currentCity } = useAppSelector((state) => state);
+function ListCards({offers, onListItemHover, placeCardClass, placeCardImageClass}: PropsType): JSX.Element {
+  const {currentCity} = useAppSelector((state) => state);
   return (
     <>
       {offers.map((offer) => (
