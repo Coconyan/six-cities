@@ -1,3 +1,4 @@
+import { useAppSelector } from '../../hooks';
 import { Offer } from '../../types/offer';
 import PlaceCard from '../place-card/place-card';
 
@@ -9,16 +10,11 @@ type PropsType = {
 }
 
 function ListCards({offers, onListItemHover, placeCardClass, placeCardImageClass}: PropsType): JSX.Element {
+  const {currentCity} = useAppSelector((state) => state);
   return (
     <>
       {offers.map((offer) => (
-        <PlaceCard
-          key={offer.id}
-          offer={offer}
-          onListItemHover={onListItemHover}
-          placeCardClass={placeCardClass}
-          placeCardImageClass={placeCardImageClass}
-        />
+        offer.city.name === currentCity.name ? <PlaceCard key={offer.id} offer={offer} onListItemHover={onListItemHover} placeCardClass={placeCardClass} placeCardImageClass={placeCardImageClass} /> : ''
       ))}
     </>
   );
