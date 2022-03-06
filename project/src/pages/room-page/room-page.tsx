@@ -17,7 +17,6 @@ type PropsType = {
 }
 
 function RoomPage({offers}: PropsType): JSX.Element {
-  const city = offers[0].city;
   const {id} = useParams();
   const offer = offers.find((element) => element.id === Number(id));
 
@@ -25,7 +24,7 @@ function RoomPage({offers}: PropsType): JSX.Element {
     return <Navigate to={AppRoute.Root} />;
   }
 
-  const {title, isPremium, rating, type, bedrooms, maxAdults, price, isFavorite, host, description} = offer;
+  const {city, title, isPremium, rating, type, bedrooms, maxAdults, price, isFavorite, host, description} = offer;
   const {name, isPro, avatarUrl} = host;
   const favoriteClassName = `property__bookmark-button${isFavorite ? isFavorite && ' property__bookmark-button--active button' : ' button'}`;
 

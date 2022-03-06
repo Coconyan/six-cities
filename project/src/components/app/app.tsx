@@ -14,18 +14,21 @@ import NotFoundPage from '../../pages/not-found-page/not-found-page';
 import RoomPage from '../../pages/room-page/room-page';
 import SignInPage from '../../pages/sign-in-page/sign-in-page';
 import PrivateRoute from '../private-route/private-route';
+import { useAppSelector } from '../../hooks';
 
 type PropsType = {
   offers: Offer[];
 }
 
 function App({offers}: PropsType): JSX.Element {
+  const {currentCity} = useAppSelector((state) => state);
+  const currentCityOffers = offers.filter((offer) => offer.city.name === currentCity.name);
   return (
     <BrowserRouter>
       <Routes>
         <Route
           path={AppRoute.Root}
-          element={<MainPage offers={offers} />}
+          element={<MainPage />}
         />
         <Route
           path={AppRoute.Favorites}
@@ -37,9 +40,9 @@ function App({offers}: PropsType): JSX.Element {
         />
         <Route
           path={AppRoute.Room}
-          element={<RoomPage offers={offers} />}
+          element={<RoomPage offers={currentCityOffers}/>}
         >
-          <Route path={`${AppRoute.Room}:id`} element={<RoomPage offers={offers} />} />
+          <Route path={`${AppRoute.Room}:id`} element={<RoomPage offers={currentCityOffers}/>} />
         </Route>
         <Route
           path={AppRoute.SignIn}
