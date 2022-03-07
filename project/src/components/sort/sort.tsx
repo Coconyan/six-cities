@@ -14,7 +14,7 @@ function Sort(): JSX.Element {
   return (
     <>
       <span className="places__sorting-type" tabIndex={0}  onClick={onListClick}>
-      Popular
+        {currentSortType}
         <svg className="places__sorting-arrow" width={7} height={4}>
           <use xlinkHref="#icon-arrow-select" />
         </svg>
