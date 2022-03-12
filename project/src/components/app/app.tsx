@@ -7,7 +7,6 @@ import {
   AppRoute,
   AuthorizationStatus
 } from '../../const';
-import { Offer } from '../../types/offer';
 import FavoritesPage from '../../pages/favorites-page/favorites-page';
 import MainPage from '../../pages/main-page/main-page';
 import NotFoundPage from '../../pages/not-found-page/not-found-page';
@@ -16,12 +15,8 @@ import SignInPage from '../../pages/sign-in-page/sign-in-page';
 import PrivateRoute from '../private-route/private-route';
 import { useAppSelector } from '../../hooks';
 
-type PropsType = {
-  offers: Offer[];
-}
-
-function App({offers}: PropsType): JSX.Element {
-  const {currentCity} = useAppSelector((state) => state);
+function App(): JSX.Element {
+  const {currentCity, offers} = useAppSelector((state) => state);
   const currentCityOffers = offers.filter((offer) => offer.city.name === currentCity.name);
   return (
     <BrowserRouter>

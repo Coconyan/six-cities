@@ -1,10 +1,13 @@
 import { SortTypes } from '../../const';
-import { useAppSelector } from '../../hooks';
-import { store } from '../../store';
+import {
+  useAppDispatch,
+  useAppSelector
+} from '../../hooks';
 import { changeSortType } from '../../store/actions';
 
 
 function Sort(): JSX.Element {
+  const dispatch = useAppDispatch();
   const {currentSortType} = useAppSelector((state) => state);
   const onListClick = ():void => {
     const sortListElement = document.querySelector('.places__options');
@@ -25,7 +28,7 @@ function Sort(): JSX.Element {
             key={SortTypes[sort]}
             className={`places__option ${currentSortType === SortTypes[sort] ? 'places__option--active' : ''}`}
             tabIndex={0}
-            onClick={() => {store.dispatch(changeSortType(SortTypes[sort]));}}
+            onClick={() => {dispatch(changeSortType(SortTypes[sort]));}}
           >{SortTypes[sort]}
           </li>
         ))}

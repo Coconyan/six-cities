@@ -1,18 +1,31 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { SortTypes } from '../const';
+import {
+  City,
+  Offers
+} from '../types/offer';
 import { cities } from '../mocks/cities';
-import { offers } from '../mocks/offers';
 import {
   changeCity,
   fillOffersList,
-  changeSortType
+  changeSortType,
+  loadOffers
 } from './actions';
 
-const initialState = {
+type InitalState = {
+  cities: City[],
+  currentCity: City,
+  offers: Offers,
+  currentSortType: string,
+  isDataLoaded: boolean,
+}
+
+const initialState: InitalState = {
   cities,
   currentCity: cities[0],
-  offers: offers,
+  offers: [],
   currentSortType: SortTypes.Popular,
+  isDataLoaded: false,
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -25,6 +38,10 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(changeSortType, (state, action) => {
       state.currentSortType = action.payload;
+    })
+    .addCase(loadOffers, (state, action) => {
+      state.offers = action.payload;
+      state.isDataLoaded = true;
     });
 });
 
