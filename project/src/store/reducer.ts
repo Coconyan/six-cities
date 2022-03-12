@@ -12,7 +12,7 @@ import {
   loadOffers
 } from './actions';
 
-type InitalState = {
+type InitialState = {
   cities: City[],
   currentCity: City,
   offers: Offers,
@@ -20,7 +20,7 @@ type InitalState = {
   isDataLoaded: boolean,
 }
 
-const initialState: InitalState = {
+const initialState: InitialState = {
   cities,
   currentCity: cities[0],
   offers: [],
