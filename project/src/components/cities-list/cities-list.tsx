@@ -1,10 +1,10 @@
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
-import { useAppSelector } from '../../hooks';
-import { store } from '../../store';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import { changeCity } from '../../store/actions';
 
 function CitiesList(): JSX.Element {
+  const dispatch = useAppDispatch();
   const {cities, currentCity} = useAppSelector((state) => state);
   return (
     <>
@@ -17,7 +17,7 @@ function CitiesList(): JSX.Element {
                 key={city.name}
                 className="locations__item"
                 id={city.name}
-                onClick={() => {store.dispatch(changeCity(city));}}
+                onClick={() => {dispatch(changeCity(city));}}
               >
                 <Link
                   to={AppRoute.Root}
