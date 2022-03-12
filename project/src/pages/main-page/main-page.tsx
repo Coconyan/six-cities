@@ -4,16 +4,18 @@ import ListCards from '../../components/list-cards/list-cards';
 import Logo from '../../components/logo/logo';
 import Map from '../../components/map/map';
 import Sort from '../../components/sort/sort';
-import { SortTypes } from '../../const';
 import { useAppSelector } from '../../hooks';
 import { Offer } from '../../types/offer';
+import {
+  SortTypes,
+  SPINNER_COLOR
+} from '../../const';
 import {
   sortPriceToHigh,
   sortPriceToLow,
   sortRatingToHigh
 } from '../../utils';
 import { SpinnerCircular } from 'spinners-react';
-const SPINNER_COLOR = '#4481c3';
 
 function MainPage(): JSX.Element {
   const {currentCity, offers, currentSortType, isDataLoaded} = useAppSelector((state) => state);

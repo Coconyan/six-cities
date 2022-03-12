@@ -17,6 +17,8 @@ export const URL_MARKER_DEFAULT =
 export const URL_MARKER_CURRENT =
   'img/pin-active.svg';
 
+export const SPINNER_COLOR = '#4481c3';
+
 export enum SortTypes {
   Popular = 'Popular',
   PriceLowToHigh = 'Price: low to high',
