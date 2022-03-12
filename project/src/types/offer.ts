@@ -34,3 +34,5 @@ export type Offer = {
   location: Location;
   id: number;
 }
+
+export type Offers = Offer[];

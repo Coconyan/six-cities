@@ -1,5 +1,8 @@
 import { SortTypes } from '../../const';
-import { useAppDispatch, useAppSelector } from '../../hooks';
+import {
+  useAppDispatch,
+  useAppSelector
+} from '../../hooks';
 import { changeSortType } from '../../store/actions';
 
 
