@@ -1,6 +1,5 @@
 import {
   Route,
-  BrowserRouter,
   Routes
 } from 'react-router-dom';
 import {
@@ -15,6 +14,8 @@ import SignInPage from '../../pages/sign-in-page/sign-in-page';
 import PrivateRoute from '../private-route/private-route';
 import { useAppSelector } from '../../hooks';
 import { SpinnerCircular } from 'spinners-react';
+import HistoryRouter from '../history-route/history-route';
+import browserHistory from '../../browser-history';
 
 function App(): JSX.Element {
   const {currentCity, offers, authorizationStatus, isDataLoaded} = useAppSelector((state) => state);
@@ -27,7 +28,7 @@ function App(): JSX.Element {
   }
 
   return (
-    <BrowserRouter>
+    <HistoryRouter history={browserHistory}>
       <Routes>
         <Route
           path={AppRoute.Root}
@@ -56,7 +57,7 @@ function App(): JSX.Element {
           element={<NotFoundPage />}
         />
       </Routes>
-    </BrowserRouter>
+    </HistoryRouter>
   );
 }
 

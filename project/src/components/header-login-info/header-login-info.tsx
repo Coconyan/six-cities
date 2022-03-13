@@ -1,6 +1,12 @@
 import { Link } from 'react-router-dom';
-import { AppRoute, AuthorizationStatus } from '../../const';
-import { useAppDispatch, useAppSelector } from '../../hooks';
+import {
+  AppRoute,
+  AuthorizationStatus
+} from '../../const';
+import {
+  useAppDispatch,
+  useAppSelector
+} from '../../hooks';
 import { getEmail } from '../../services/token';
 import { logoutAction } from '../../store/api-actions';
 

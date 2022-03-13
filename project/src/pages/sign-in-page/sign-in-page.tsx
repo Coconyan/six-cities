@@ -1,4 +1,7 @@
-import { FormEvent, useRef } from 'react';
+import {
+  FormEvent,
+  useRef
+} from 'react';
 import { Link } from 'react-router-dom';
 import Logo from '../../components/logo/logo';
 import { AppRoute } from '../../const';

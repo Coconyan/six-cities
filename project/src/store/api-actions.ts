@@ -5,6 +5,7 @@ import {
 } from '.';
 import {
   APIRoute,
+  AppRoute,
   AuthorizationStatus
 } from '../const';
 import {
@@ -18,6 +19,7 @@ import { Offers } from '../types/offer';
 import { UserData } from '../types/user-data';
 import {
   loadOffers,
+  redirectToRoute,
   requireAuthorization
 } from './actions';
 
@@ -49,6 +51,7 @@ export const loginAction = createAsyncThunk(
     saveToken(data.token);
     saveEmail(data.email);
     store.dispatch(requireAuthorization(AuthorizationStatus.Auth));
+    store.dispatch(redirectToRoute(AppRoute.Root));
   },
 );
 
