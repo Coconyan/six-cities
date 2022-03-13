@@ -8,6 +8,7 @@ import {
   AppRoute,
   AuthorizationStatus
 } from '../const';
+import { errorHandle } from '../services/error-handle';
 import {
   dropEmail,
   dropToken,
@@ -30,8 +31,7 @@ export const fetchOffersAction = createAsyncThunk(
       const {data} = await api.get<Offers>(APIRoute.Offers);
       store.dispatch(loadOffers(data));
     } catch (error) {
-      // eslint-disable-next-line no-console
-      console.log(error);
+      errorHandle(error);
     }
   },
 );
@@ -39,28 +39,42 @@ export const fetchOffersAction = createAsyncThunk(
 export const checkAuthAction = createAsyncThunk(
   'user/checkAuth',
   async () => {
-    await api.get(APIRoute.Login);
-    store.dispatch(requireAuthorization(AuthorizationStatus.Auth));
+    try {
+      await api.get(APIRoute.Login);
+      store.dispatch(requireAuthorization(AuthorizationStatus.Auth));
+    } catch (error) {
+      errorHandle(error);
+      store.dispatch(requireAuthorization(AuthorizationStatus.NoAuth));
+    }
   },
 );
 
 export const loginAction = createAsyncThunk(
   'user/login',
   async ({login: email, password}: AuthData) => {
-    const {data} = await api.post<UserData>(APIRoute.Login, {email, password});
-    saveToken(data.token);
-    saveEmail(data.email);
-    store.dispatch(requireAuthorization(AuthorizationStatus.Auth));
-    store.dispatch(redirectToRoute(AppRoute.Root));
+    try {
+      const {data} = await api.post<UserData>(APIRoute.Login, {email, password});
+      saveToken(data.token);
+      saveEmail(data.email);
+      store.dispatch(requireAuthorization(AuthorizationStatus.Auth));
+      store.dispatch(redirectToRoute(AppRoute.Root));
+    } catch (error) {
+      errorHandle(error);
+      store.dispatch(requireAuthorization(AuthorizationStatus.NoAuth));
+    }
   },
 );
 
 export const logoutAction = createAsyncThunk(
   'user/logout',
   async () => {
-    await api.delete(APIRoute.Logout);
-    dropToken();
-    dropEmail();
-    store.dispatch(requireAuthorization(AuthorizationStatus.NoAuth));
+    try {
+      await api.delete(APIRoute.Logout);
+      dropToken();
+      dropEmail();
+      store.dispatch(requireAuthorization(AuthorizationStatus.NoAuth));
+    } catch (error) {
+      errorHandle(error);
+    }
   },
 );
