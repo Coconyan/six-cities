@@ -1,11 +1,10 @@
 import {
   Route,
-  BrowserRouter,
   Routes
 } from 'react-router-dom';
 import {
   AppRoute,
-  AuthorizationStatus
+  SPINNER_COLOR
 } from '../../const';
 import FavoritesPage from '../../pages/favorites-page/favorites-page';
 import MainPage from '../../pages/main-page/main-page';
@@ -14,12 +13,22 @@ import RoomPage from '../../pages/room-page/room-page';
 import SignInPage from '../../pages/sign-in-page/sign-in-page';
 import PrivateRoute from '../private-route/private-route';
 import { useAppSelector } from '../../hooks';
+import { SpinnerCircular } from 'spinners-react';
+import HistoryRouter from '../history-route/history-route';
+import browserHistory from '../../browser-history';
 
 function App(): JSX.Element {
-  const {currentCity, offers} = useAppSelector((state) => state);
+  const {currentCity, offers, authorizationStatus, isDataLoaded} = useAppSelector((state) => state);
   const currentCityOffers = offers.filter((offer) => offer.city.name === currentCity.name);
+
+  if (!isDataLoaded) {
+    return (
+      <SpinnerCircular color={SPINNER_COLOR}/>
+    );
+  }
+
   return (
-    <BrowserRouter>
+    <HistoryRouter history={browserHistory}>
       <Routes>
         <Route
           path={AppRoute.Root}
@@ -28,7 +37,7 @@ function App(): JSX.Element {
         <Route
           path={AppRoute.Favorites}
           element={
-            <PrivateRoute authorizationStatus={AuthorizationStatus.NoAuth}>
+            <PrivateRoute authorizationStatus={authorizationStatus}>
               <FavoritesPage />
             </PrivateRoute>
           }
@@ -48,7 +57,7 @@ function App(): JSX.Element {
           element={<NotFoundPage />}
         />
       </Routes>
-    </BrowserRouter>
+    </HistoryRouter>
   );
 }
 
