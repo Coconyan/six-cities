@@ -16,9 +16,20 @@ import {
   saveToken
 } from '../services/token';
 import { AuthData } from '../types/auth-data';
-import { Offers } from '../types/offer';
+import {
+  CommentData,
+  CommentDataWithOfferId,
+  Comments
+} from '../types/comments';
+import {
+  Offer,
+  Offers
+} from '../types/offer';
 import { UserData } from '../types/user-data';
 import {
+  loadCurrentOffer,
+  loadCurrentOffersComments,
+  loadCurrentOffersNearby,
   loadOffers,
   redirectToRoute,
   requireAuthorization
@@ -32,6 +43,54 @@ export const fetchOffersAction = createAsyncThunk(
       store.dispatch(loadOffers(data));
     } catch (error) {
       errorHandle(error);
+    }
+  },
+);
+
+export const fetchCurrentOffer = createAsyncThunk(
+  'data/fetchCurrentOffer',
+  async (id: number) => {
+    try {
+      const {data} = await api.get<Offer>(`${APIRoute.Offers}/${id}`);
+      store.dispatch(loadCurrentOffer(data));
+    } catch (error) {
+      errorHandle(error);
+    }
+  },
+);
+
+export const fetchCurrentOffersNearby = createAsyncThunk(
+  'data/fetchCurrentOffersNearby',
+  async (id: number) => {
+    try {
+      const {data} = await api.get<Offers>(`${APIRoute.Offers}/${id}/nearby`);
+      store.dispatch(loadCurrentOffersNearby(data));
+    } catch (error) {
+      errorHandle(error);
+    }
+  },
+);
+
+export const fetchCurrentOffersComments = createAsyncThunk(
+  'data/fetchCurrentOffersComments',
+  async (id: number) => {
+    try {
+      const {data} = await api.get<Comments[]>(`${APIRoute.Comments}/${id}`);
+      store.dispatch(loadCurrentOffersComments(data));
+    } catch (error) {
+      errorHandle(error);
+    }
+  },
+);
+
+export const newCommentAction = createAsyncThunk(
+  'user/newComment',
+  async ({comment, rating, id}: CommentDataWithOfferId) => {
+    try {
+      await api.post<CommentData>(`${APIRoute.Comments}/${id}`, {comment, rating});
+    } catch (error) {
+      errorHandle(error);
+      store.dispatch(requireAuthorization(AuthorizationStatus.NoAuth));
     }
   },
 );

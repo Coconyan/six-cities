@@ -1,3 +1,5 @@
+import { AuthorizationStatus } from '../../const';
+import { useAppSelector } from '../../hooks';
 import { Comments } from '../../types/comments';
 import FormComments from '../form-comments/form-comments';
 import RoomReview from '../room-review/room-review';
@@ -6,7 +8,8 @@ type PropsType = {
   comments: Comments[];
 }
 
-function RoomReviewsList({ comments }: PropsType): JSX.Element {
+function RoomReviewsList({comments}: PropsType): JSX.Element {
+  const {authorizationStatus} = useAppSelector((state) => state);
   return (
     <section className="property__reviews reviews">
       <h2 className="reviews__title">Reviews · <span className="reviews__amount">{comments.length}</span></h2>
@@ -22,7 +25,7 @@ function RoomReviewsList({ comments }: PropsType): JSX.Element {
           />
         ))}
       </ul>
-      <FormComments />
+      {authorizationStatus === AuthorizationStatus.Auth ? <FormComments /> : ''}
     </section>
   );
 }

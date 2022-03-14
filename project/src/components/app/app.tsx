@@ -18,8 +18,7 @@ import HistoryRouter from '../history-route/history-route';
 import browserHistory from '../../browser-history';
 
 function App(): JSX.Element {
-  const {currentCity, offers, authorizationStatus, isDataLoaded} = useAppSelector((state) => state);
-  const currentCityOffers = offers.filter((offer) => offer.city.name === currentCity.name);
+  const {authorizationStatus, isDataLoaded} = useAppSelector((state) => state);
 
   if (!isDataLoaded) {
     return (
@@ -44,9 +43,9 @@ function App(): JSX.Element {
         />
         <Route
           path={AppRoute.Room}
-          element={<RoomPage offers={currentCityOffers}/>}
+          element={<RoomPage />}
         >
-          <Route path={`${AppRoute.Room}:id`} element={<RoomPage offers={currentCityOffers}/>} />
+          <Route path={`${AppRoute.Room}:id`} element={<RoomPage />} />
         </Route>
         <Route
           path={AppRoute.SignIn}

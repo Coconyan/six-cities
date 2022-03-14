@@ -4,6 +4,7 @@ import {
   AuthorizationStatus,
   SortTypes
 } from '../const';
+import { Comments } from '../types/comments';
 import {
   City,
   Offer,
@@ -11,9 +12,6 @@ import {
 } from '../types/offer';
 
 export const changeCity = createAction('changeCity', (value: City) => ({
-  payload: value,
-}));
-export const fillOffersList = createAction('fillOffersList', (value: Offer[]) => ({
   payload: value,
 }));
 export const changeSortType = createAction('changeSortType', (value: SortTypes) => ({
@@ -26,5 +24,14 @@ export const requireAuthorization = createAction('user/requireAuthorization', (v
   payload: value,
 }));
 export const redirectToRoute = createAction('redirectToRoute', (value: AppRoute) => ({
+  payload: value,
+}));
+export const loadCurrentOffer = createAction('loadCurrentOffer', (value: Offer) => ({
+  payload: value,
+}));
+export const loadCurrentOffersNearby = createAction('loadCurrentOffersNearby', (value: Offers) => ({
+  payload: value,
+}));
+export const loadCurrentOffersComments = createAction('loadCurrentOffersComments', (value: Comments[]) => ({
   payload: value,
 }));
