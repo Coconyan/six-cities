@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import {
   Navigate,
   useParams
@@ -24,21 +25,14 @@ function RoomPage(): JSX.Element {
   const dispatch = useAppDispatch();
   const {currentOffer: offer, currentOffersNearby, currentOffersComments} = useAppSelector((state) => state);
   const {id} = useParams();
-  if (offer === null || offer.id !== Number(id)) {
-    dispatch(fetchCurrentOffer(Number(id)));
-    dispatch(fetchCurrentOffersNearby(Number(id)));
-    dispatch(fetchCurrentOffersComments(Number(id)));
-    // eslint-disable-next-line no-console
-    console.log('Offer update');
-  }
-  // offer.id !== Number(id) ?? dispatch(fetchCurrentOffer(Number(id)));
-  // const offer = offers.find((element) => element.id === Number(id));
-  // eslint-disable-next-line no-console
-  console.log(offer, '------',id);
-  // eslint-disable-next-line no-console
-  console.log(currentOffersNearby);
-  // eslint-disable-next-line no-console
-  console.log(currentOffersComments);
+
+  useEffect(() => {
+    if (offer === null || offer.id !== Number(id)) {
+      dispatch(fetchCurrentOffer(Number(id)));
+      dispatch(fetchCurrentOffersNearby(Number(id)));
+      dispatch(fetchCurrentOffersComments(Number(id)));
+    }
+  }, [dispatch, id, offer, currentOffersNearby, currentOffersComments]);
 
   if (!offer) {
     return <Navigate to={AppRoute.Root} />;

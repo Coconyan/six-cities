@@ -2,12 +2,13 @@ import {
   FormEvent,
   useState
 } from 'react';
+import { useParams } from 'react-router-dom';
 import { COMMENTS_LENGTH } from '../../const';
 import {
   useAppDispatch,
   useAppSelector
 } from '../../hooks';
-import { newCommentAction } from '../../store/api-actions';
+import { fetchCurrentOffersComments, newCommentAction } from '../../store/api-actions';
 import { CommentDataWithOfferId } from '../../types/comments';
 import Star from '../star/star';
 
@@ -15,6 +16,7 @@ function FormComments(): JSX.Element {
   const {currentOffer} = useAppSelector((state) => state);
   const [rating, setRating] = useState(0);
   const [comment, setComment] = useState('');
+  const {id} = useParams();
   const dispatch = useAppDispatch();
 
   const fieldChangeHandler = (event: { target: { value: string; }; }) => {
@@ -24,6 +26,7 @@ function FormComments(): JSX.Element {
 
   const onSubmit = (commentData: CommentDataWithOfferId) => {
     dispatch(newCommentAction(commentData));
+    dispatch(fetchCurrentOffersComments(Number(id)));
     setRating(0);
     setComment('');
   };
@@ -38,6 +41,7 @@ function FormComments(): JSX.Element {
         id: currentOffer.id,
       });
     }
+    event.currentTarget.reset();
   };
 
   return (
