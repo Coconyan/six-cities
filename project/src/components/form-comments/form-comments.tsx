@@ -2,24 +2,47 @@ import {
   FormEvent,
   useState
 } from 'react';
+import { COMMENTS_LENGTH } from '../../const';
+import {
+  useAppDispatch,
+  useAppSelector
+} from '../../hooks';
+import { newCommentAction } from '../../store/api-actions';
+import { CommentDataWithOfferId } from '../../types/comments';
 import Star from '../star/star';
 
 function FormComments(): JSX.Element {
+  const {currentOffer} = useAppSelector((state) => state);
   const [rating, setRating] = useState(0);
   const [comment, setComment] = useState('');
+  const dispatch = useAppDispatch();
 
   const fieldChangeHandler = (event: { target: { value: string; }; }) => {
     const {value} = event.target;
     setComment(value);
   };
 
+  const onSubmit = (commentData: CommentDataWithOfferId) => {
+    dispatch(newCommentAction(commentData));
+    setRating(0);
+    setComment('');
+  };
+
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    if (rating !== 0 && comment !== '' && currentOffer !== null) {
+      onSubmit({
+        comment: comment,
+        rating: rating,
+        id: currentOffer.id,
+      });
+    }
+  };
+
   return (
     <form className="reviews__form form" action="#" method="post"
-      onSubmit={(evt: FormEvent<HTMLFormElement>) => {
-        evt.preventDefault();
-        // eslint-disable-next-line no-console
-        console.log(rating, '------', comment);
-      }}
+      onSubmit={handleSubmit}
     >
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
       <div className="reviews__rating-form form__rating">
@@ -36,6 +59,8 @@ function FormComments(): JSX.Element {
         id="review" name="review"
         placeholder="Tell how was your stay, what you like and what can be improved"
         defaultValue={''}
+        minLength={COMMENTS_LENGTH.MIN}
+        maxLength={COMMENTS_LENGTH.MAX}
         onChange={fieldChangeHandler}
       />
       <div className="reviews__button-wrapper">

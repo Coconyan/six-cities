@@ -9,17 +9,36 @@ import Map from '../../components/map/map';
 import PremiumMark from '../../components/premium-mark/premium-mark';
 import RoomReviewsList from '../../components/room-reviews-list/room-reviews-list';
 import { AppRoute } from '../../const';
-import { comments } from '../../mocks/comments';
-import { Offer } from '../../types/offer';
+import {
+  useAppDispatch,
+  useAppSelector
+} from '../../hooks';
+import {
+  fetchCurrentOffer,
+  fetchCurrentOffersComments,
+  fetchCurrentOffersNearby
+} from '../../store/api-actions';
 import firstLetterToUpperCase from '../../utils';
 
-type PropsType = {
-  offers: Offer[];
-}
-
-function RoomPage({offers}: PropsType): JSX.Element {
+function RoomPage(): JSX.Element {
+  const dispatch = useAppDispatch();
+  const {currentOffer: offer, currentOffersNearby, currentOffersComments} = useAppSelector((state) => state);
   const {id} = useParams();
-  const offer = offers.find((element) => element.id === Number(id));
+  if (offer === null || offer.id !== Number(id)) {
+    dispatch(fetchCurrentOffer(Number(id)));
+    dispatch(fetchCurrentOffersNearby(Number(id)));
+    dispatch(fetchCurrentOffersComments(Number(id)));
+    // eslint-disable-next-line no-console
+    console.log('Offer update');
+  }
+  // offer.id !== Number(id) ?? dispatch(fetchCurrentOffer(Number(id)));
+  // const offer = offers.find((element) => element.id === Number(id));
+  // eslint-disable-next-line no-console
+  console.log(offer, '------',id);
+  // eslint-disable-next-line no-console
+  console.log(currentOffersNearby);
+  // eslint-disable-next-line no-console
+  console.log(currentOffersComments);
 
   if (!offer) {
     return <Navigate to={AppRoute.Root} />;
@@ -119,14 +138,15 @@ function RoomPage({offers}: PropsType): JSX.Element {
                   </p>
                 </div>
               </div>
-              <RoomReviewsList comments={comments}/>
+              {currentOffersComments !== null ? <RoomReviewsList comments={currentOffersComments}/> : ''}
             </div>
           </div>
           <section className="property__map map">
             {
               <Map
+                key={offer.id}
                 city={city}
-                offers={offers.slice(0, 4)}
+                offers={currentOffersNearby !== null ? currentOffersNearby.slice(0, 3).concat(offer) : [offer]}
                 height={'580px'}
                 activeCard={offer}
               />
@@ -138,7 +158,7 @@ function RoomPage({offers}: PropsType): JSX.Element {
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
             <div className="near-places__list places__list">
               <ListCards
-                offers={offers.slice(0, 3)}
+                offers={currentOffersNearby !== null ? currentOffersNearby.slice(0, 3) : [offer]}
                 placeCardClass = '__card'
                 placeCardImageClass = 'near-places'
               />
