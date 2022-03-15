@@ -18,7 +18,8 @@ import HistoryRouter from '../history-route/history-route';
 import browserHistory from '../../browser-history';
 
 function App(): JSX.Element {
-  const {authorizationStatus, isDataLoaded} = useAppSelector((state) => state);
+  const {isDataLoaded} = useAppSelector(({DATA}) => DATA);
+  const {authorizationStatus} = useAppSelector(({USER}) => USER);
 
   if (!isDataLoaded) {
     return (

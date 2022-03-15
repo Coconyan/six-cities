@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { Link } from 'react-router-dom';
 import {
   AppRoute,
@@ -11,7 +12,7 @@ import { getEmail } from '../../services/token';
 import { logoutAction } from '../../store/api-actions';
 
 function HeaderLoginInfo(): JSX.Element {
-  const {authorizationStatus} = useAppSelector((state) => state);
+  const {authorizationStatus} = useAppSelector(({USER}) => USER);
   const email = getEmail();
   const dispatch = useAppDispatch();
 
@@ -52,4 +53,4 @@ function HeaderLoginInfo(): JSX.Element {
   );
 }
 
-export default HeaderLoginInfo;
+export default memo(HeaderLoginInfo);

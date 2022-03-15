@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { Link } from 'react-router-dom';
 
 type LogoProps = {
@@ -14,4 +15,4 @@ function Logo({isMain}: LogoProps): JSX.Element {
   );
 }
 
-export default Logo;
+export default memo(Logo);

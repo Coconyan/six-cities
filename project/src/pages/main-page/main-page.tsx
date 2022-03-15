@@ -1,4 +1,8 @@
-import { useState } from 'react';
+import {
+  useCallback,
+  useMemo,
+  useState
+} from 'react';
 import CitiesList from '../../components/cities-list/cities-list';
 import ListCards from '../../components/list-cards/list-cards';
 import Logo from '../../components/logo/logo';
@@ -19,17 +23,19 @@ import { SpinnerCircular } from 'spinners-react';
 import HeaderLoginInfo from '../../components/header-login-info/header-login-info';
 
 function MainPage(): JSX.Element {
-  const {currentCity, offers, currentSortType, isDataLoaded} = useAppSelector((state) => state);
-  let currentCityOffers = offers.filter((offer) => offer.city.name === currentCity.name);
+  const {currentCity, offers, currentSortType, isDataLoaded} = useAppSelector(({DATA}) => DATA);
+  let currentCityOffers = useMemo(() => offers.filter((offer) => offer.city.name === currentCity.name), [currentCity.name, offers]);
 
   const [activeCard, setActiveCard] = useState<Offer | undefined>(
     undefined,
   );
 
-  const onListItemHover = (id: string) => {
+  const onListItemHover = useCallback((id: string) => {
     const currentOffer = offers.find((offer) => String(offer.id) === id);
     setActiveCard(currentOffer);
-  };
+  },
+  [offers],
+  );
 
   switch (currentSortType) {
     case SortTypes.PriceLowToHigh:

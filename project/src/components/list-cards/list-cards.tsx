@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { useAppSelector } from '../../hooks';
 import { Offer } from '../../types/offer';
 import PlaceCard from '../place-card/place-card';
@@ -10,7 +11,7 @@ type PropsType = {
 }
 
 function ListCards({offers, onListItemHover, placeCardClass, placeCardImageClass}: PropsType): JSX.Element {
-  const {currentCity} = useAppSelector((state) => state);
+  const {currentCity} = useAppSelector(({DATA}) => DATA);
   return (
     <>
       {offers.map((offer) => (
@@ -20,4 +21,4 @@ function ListCards({offers, onListItemHover, placeCardClass, placeCardImageClass
   );
 }
 
-export default ListCards;
+export default memo(ListCards);

@@ -1,11 +1,15 @@
+import { memo } from 'react';
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
-import { useAppDispatch, useAppSelector } from '../../hooks';
-import { changeCity } from '../../store/actions';
+import {
+  useAppDispatch,
+  useAppSelector
+} from '../../hooks';
+import { changeCity } from '../../store/data/data';
 
 function CitiesList(): JSX.Element {
   const dispatch = useAppDispatch();
-  const {cities, currentCity} = useAppSelector((state) => state);
+  const {cities, currentCity} = useAppSelector(({DATA}) => DATA);
   return (
     <>
       <h1 className="visually-hidden">Cities</h1>
@@ -35,4 +39,4 @@ function CitiesList(): JSX.Element {
   );
 }
 
-export default CitiesList;
+export default memo(CitiesList);

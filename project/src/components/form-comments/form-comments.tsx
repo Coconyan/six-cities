@@ -8,12 +8,15 @@ import {
   useAppDispatch,
   useAppSelector
 } from '../../hooks';
-import { fetchCurrentOffersComments, newCommentAction } from '../../store/api-actions';
+import {
+  fetchCurrentOffersComments,
+  newCommentAction
+} from '../../store/api-actions';
 import { CommentDataWithOfferId } from '../../types/comments';
 import Star from '../star/star';
 
 function FormComments(): JSX.Element {
-  const {currentOffer} = useAppSelector((state) => state);
+  const {currentOffer} = useAppSelector(({DATA}) => DATA);
   const [rating, setRating] = useState(0);
   const [comment, setComment] = useState('');
   const {id} = useParams();
