@@ -26,14 +26,14 @@ import {
   Offers
 } from '../types/offer';
 import { UserData } from '../types/user-data';
+import { redirectToRoute } from './actions';
 import {
   loadCurrentOffer,
   loadCurrentOffersComments,
   loadCurrentOffersNearby,
-  loadOffers,
-  redirectToRoute,
-  requireAuthorization
-} from './actions';
+  loadOffers
+} from './data/data';
+import { requireAuthorization } from './user-process/user-process';
 
 export const fetchOffersAction = createAsyncThunk(
   'data/fetchOffers',

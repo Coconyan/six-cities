@@ -23,7 +23,7 @@ import firstLetterToUpperCase from '../../utils';
 
 function RoomPage(): JSX.Element {
   const dispatch = useAppDispatch();
-  const {currentOffer: offer, currentOffersNearby, currentOffersComments} = useAppSelector((state) => state);
+  const {currentOffer: offer, currentOffersNearby, currentOffersComments} = useAppSelector(({DATA}) => DATA);
   const {id} = useParams();
 
   useEffect(() => {

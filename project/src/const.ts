@@ -43,3 +43,8 @@ export enum COMMENTS_LENGTH {
   MIN = 50,
   MAX = 300,
 }
+
+export enum NameSpace {
+  data = 'DATA',
+  user = 'USER',
+}

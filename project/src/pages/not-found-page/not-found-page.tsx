@@ -1,7 +1,9 @@
 import { Link } from 'react-router-dom';
 import Logo from '../../components/logo/logo';
+import { useAppSelector } from '../../hooks';
 
 function NotFoundPage(): JSX.Element {
+  const {currentCity} = useAppSelector(({DATA}) => DATA);
   return (
     <div className="page page--gray page--login">
       <header className="header">
@@ -22,7 +24,7 @@ function NotFoundPage(): JSX.Element {
           <section className="locations locations--login locations--current">
             <div className="locations__item">
               <a className="locations__item-link" href="/">
-                <span>Amsterdam</span>
+                <span>{currentCity.name}</span>
               </a>
             </div>
           </section>

@@ -13,7 +13,7 @@ import { loginAction } from '../../store/api-actions';
 import { AuthData } from '../../types/auth-data';
 
 function SignInPage(): JSX.Element {
-  const {currentCity} = useAppSelector((state) => state);
+  const {currentCity} = useAppSelector(({DATA}) => DATA);
   const loginRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
 
