@@ -121,6 +121,18 @@ export const addOfferToFavoritePage = createAsyncThunk(
   },
 );
 
+export const addOfferToFavoriteOfferPage = createAsyncThunk(
+  'data/addOfferToFavorite',
+  async (offerId: number) => {
+    try {
+      await api.post<number>(`${APIRoute.Favorite}/${offerId}/${1}`);
+      store.dispatch((fetchCurrentOffer(offerId)));
+    } catch (error) {
+      errorHandle(error);
+    }
+  },
+);
+
 export const removeOfferFromFavorite = createAsyncThunk(
   'data/removeOfferFromFavorite',
   async (offerId: number) => {
@@ -139,6 +151,18 @@ export const removeOfferFromFavoritePage = createAsyncThunk(
     try {
       await api.post<number>(`${APIRoute.Favorite}/${offerId}/${0}`);
       store.dispatch(getFavoriteOffers());
+    } catch (error) {
+      errorHandle(error);
+    }
+  },
+);
+
+export const removeOfferFromFavoriteOfferPage = createAsyncThunk(
+  'data/removeOfferFromFavorite',
+  async (offerId: number) => {
+    try {
+      await api.post<number>(`${APIRoute.Favorite}/${offerId}/${0}`);
+      store.dispatch((fetchCurrentOffer(offerId)));
     } catch (error) {
       errorHandle(error);
     }

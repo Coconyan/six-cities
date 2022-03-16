@@ -15,7 +15,11 @@ import {
   useAppSelector
 } from '../../hooks';
 import {
-  fetchCurrentOffer, fetchCurrentOffersComments, fetchCurrentOffersNearby
+  addOfferToFavoriteOfferPage,
+  fetchCurrentOffer,
+  fetchCurrentOffersComments,
+  fetchCurrentOffersNearby,
+  removeOfferFromFavoriteOfferPage
 } from '../../store/api-actions';
 import firstLetterToUpperCase from '../../utils';
 
@@ -36,9 +40,13 @@ function RoomPage(): JSX.Element {
     return <SpinnerCircular color={SPINNER_COLOR} />;
   }
 
-  const {city, title, isPremium, rating, type, bedrooms, maxAdults, price, isFavorite, host, description} = offer;
+  const {city, title, isPremium, rating, type, bedrooms, maxAdults, price, isFavorite, host, description, id: offerId} = offer;
   const {name, isPro, avatarUrl} = host;
   const favoriteClassName = `property__bookmark-button${isFavorite ? isFavorite && ' property__bookmark-button--active button' : ' button'}`;
+
+  const onFavoriteClickHandler = () => {
+    isFavorite ? dispatch(removeOfferFromFavoriteOfferPage(offerId)) : dispatch(addOfferToFavoriteOfferPage(offerId));
+  };
 
   return (
     <div className="page">
@@ -72,7 +80,7 @@ function RoomPage(): JSX.Element {
                 <h1 className="property__name">
                   {title}
                 </h1>
-                <button className={favoriteClassName} type="button">
+                <button className={favoriteClassName} type="button" onClick={onFavoriteClickHandler}>
                   <svg className="property__bookmark-icon" width={31} height={33}>
                     <use xlinkHref="#icon-bookmark" />
                   </svg>

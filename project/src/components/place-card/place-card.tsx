@@ -33,8 +33,6 @@ function PlaceCard({offer, onListItemHover, placeCardClass = '__place-card', pla
   };
 
   const onFavoriteClickHandler = () => {
-    // eslint-disable-next-line no-console
-    console.log(isFavorite);
     if (isFavoritePage) {
       isFavorite ? dispatch(removeOfferFromFavoritePage(id)) : dispatch(addOfferToFavoritePage(id));
     } else {
