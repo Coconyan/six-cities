@@ -4,7 +4,9 @@ import { AppRoute } from '../../const';
 import { useAppDispatch } from '../../hooks';
 import {
   addOfferToFavorite,
-  removeOfferFromFavorite
+  addOfferToFavoritePage,
+  removeOfferFromFavorite,
+  removeOfferFromFavoritePage
 } from '../../store/api-actions';
 import { Offer } from '../../types/offer';
 import firstLetterToUpperCase from '../../utils';
@@ -33,7 +35,11 @@ function PlaceCard({offer, onListItemHover, placeCardClass = '__place-card', pla
   const onFavoriteClickHandler = () => {
     // eslint-disable-next-line no-console
     console.log(isFavorite);
-    isFavorite ? dispatch(removeOfferFromFavorite(id)) : dispatch(addOfferToFavorite(id));
+    if (isFavoritePage) {
+      isFavorite ? dispatch(removeOfferFromFavoritePage(id)) : dispatch(addOfferToFavoritePage(id));
+    } else {
+      isFavorite ? dispatch(removeOfferFromFavorite(id)) : dispatch(addOfferToFavorite(id));
+    }
   };
 
   return (
@@ -57,7 +63,7 @@ function PlaceCard({offer, onListItemHover, placeCardClass = '__place-card', pla
             <b className="place-card__price-value">{`€${price}`}</b>
             <span className="place-card__price-text">/&nbsp;night</span>
           </div>
-          <button className={favoriteClassName} type="button" onClick={onFavoriteClickHandler}>
+          <button key={`${id  }favorite-button`} className={favoriteClassName} type="button" onClick={onFavoriteClickHandler}>
             <svg className="place-card__bookmark-icon" width={18} height={19}>
               <use xlinkHref="#icon-bookmark" />
             </svg>
