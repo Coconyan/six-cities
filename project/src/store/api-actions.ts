@@ -31,6 +31,7 @@ import {
   loadCurrentOffer,
   loadCurrentOffersComments,
   loadCurrentOffersNearby,
+  loadFavoriteOffers,
   loadOffers
 } from './data/data';
 import { requireAuthorization } from './user-process/user-process';
@@ -78,6 +79,40 @@ export const fetchCurrentOffersComments = createAsyncThunk(
     try {
       const {data} = await api.get<Comments[]>(`${APIRoute.Comments}/${id}`);
       store.dispatch(loadCurrentOffersComments(data));
+    } catch (error) {
+      errorHandle(error);
+    }
+  },
+);
+
+export const getFavoriteOffers = createAsyncThunk(
+  'data/getFavoriteOffers',
+  async () => {
+    try {
+      const {data} = await api.get<Offers>(APIRoute.Favorite);
+      store.dispatch(loadFavoriteOffers(data));
+    } catch (error) {
+      errorHandle(error);
+    }
+  },
+);
+
+export const addOfferToFavorite = createAsyncThunk(
+  'data/addOfferToFavorite',
+  async (offerId: number) => {
+    try {
+      await api.post<number>(`${APIRoute.Favorite}/${offerId}/${1}`);
+    } catch (error) {
+      errorHandle(error);
+    }
+  },
+);
+
+export const removeOfferFromFavorite = createAsyncThunk(
+  'data/removeOfferFromFavorite',
+  async (offerId: number) => {
+    try {
+      await api.post<number>(`${APIRoute.Favorite}/${offerId}/${0}`);
     } catch (error) {
       errorHandle(error);
     }

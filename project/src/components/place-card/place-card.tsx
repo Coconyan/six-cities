@@ -1,6 +1,11 @@
 import { MouseEvent } from 'react';
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
+import { useAppDispatch } from '../../hooks';
+import {
+  addOfferToFavorite,
+  removeOfferFromFavorite
+} from '../../store/api-actions';
 import { Offer } from '../../types/offer';
 import firstLetterToUpperCase from '../../utils';
 import PremiumMark from '../premium-mark/premium-mark';
@@ -10,15 +15,25 @@ type PropsType = {
   onListItemHover?: (listItemName: string) => void;
   placeCardClass?: string;
   placeCardImageClass?: string;
+  isFavoritePage?: boolean;
+  widthImage?: number;
+  heightImage?: number;
 }
 
-function PlaceCard({offer, onListItemHover, placeCardClass = '__place-card', placeCardImageClass = 'cities'}: PropsType): JSX.Element {
+function PlaceCard({offer, onListItemHover, placeCardClass = '__place-card', placeCardImageClass = 'cities', isFavoritePage = false, widthImage = 260, heightImage = 200}: PropsType): JSX.Element {
   const {previewImage, rating, price, title, type, isPremium, isFavorite, id} = offer;
   const favoriteClassName = `place-card__bookmark-button${isFavorite ? isFavorite && '--active button' : ' button'}`;
+  const dispatch = useAppDispatch();
 
   const listItemHoverHandler = (event: MouseEvent<HTMLLIElement>) => {
     event.preventDefault();
     onListItemHover && onListItemHover(event.currentTarget.id);
+  };
+
+  const onFavoriteClickHandler = () => {
+    // eslint-disable-next-line no-console
+    console.log(isFavorite);
+    isFavorite ? dispatch(removeOfferFromFavorite(id)) : dispatch(addOfferToFavorite(id));
   };
 
   return (
@@ -33,16 +48,16 @@ function PlaceCard({offer, onListItemHover, placeCardClass = '__place-card', pla
       {isPremium && <PremiumMark />}
       <div className={`${placeCardImageClass}__image-wrapper place-card__image-wrapper`}>
         <Link to={`${AppRoute.Room}/${id}`}>
-          <img className="place-card__image" src={previewImage} width={260} height={200} alt={title} />
+          <img className="place-card__image" src={previewImage} width={widthImage} height={heightImage} alt={title} />
         </Link>
       </div>
-      <div className="place-card__info">
+      <div className={`${isFavoritePage && 'favorites__card-info'} place-card__info`}>
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
             <b className="place-card__price-value">{`€${price}`}</b>
             <span className="place-card__price-text">/&nbsp;night</span>
           </div>
-          <button className={favoriteClassName} type="button">
+          <button className={favoriteClassName} type="button" onClick={onFavoriteClickHandler}>
             <svg className="place-card__bookmark-icon" width={18} height={19}>
               <use xlinkHref="#icon-bookmark" />
             </svg>

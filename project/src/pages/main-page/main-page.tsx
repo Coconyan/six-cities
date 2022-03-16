@@ -24,11 +24,7 @@ import HeaderLoginInfo from '../../components/header-login-info/header-login-inf
 import MainEmpty from '../../components/main-empty/main-empty';
 
 function MainPage(): JSX.Element {
-  // const {currentCity, offers, currentSortType, isDataLoaded} = useAppSelector(({DATA}) => DATA);
-  const currentCity = useAppSelector(({DATA}) => DATA.currentCity);
-  const offers = useAppSelector(({DATA}) => DATA.offers);
-  const currentSortType = useAppSelector(({DATA}) => DATA.currentSortType);
-  const isDataLoaded = useAppSelector(({DATA}) => DATA.isDataLoaded);
+  const {currentCity, offers, currentSortType, isDataLoaded} = useAppSelector(({DATA}) => DATA);
   let currentCityOffers = useMemo(() => offers.filter((offer) => offer.city.name === currentCity.name), [currentCity.name, offers]);
 
   const [activeCard, setActiveCard] = useState<Offer | undefined>(
@@ -36,10 +32,10 @@ function MainPage(): JSX.Element {
   );
 
   const onListItemHover = useCallback((id: string) => {
-    const currentOffer = offers.find((offer) => String(offer.id) === id);
+    const currentOffer = currentCityOffers.find((offer) => String(offer.id) === id);
     setActiveCard(currentOffer);
   },
-  [offers],
+  [currentCityOffers],
   );
 
   switch (currentSortType) {

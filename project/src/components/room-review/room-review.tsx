@@ -1,6 +1,6 @@
 import { Comments } from '../../types/comments';
 
-function RoomReview({ user, rating, comment, date, id }: Comments): JSX.Element {
+function RoomReview({user, rating, comment, date, id}: Comments): JSX.Element {
   return (
     <li className="reviews__item" key={id}>
       <div className="reviews__user user">
@@ -14,7 +14,7 @@ function RoomReview({ user, rating, comment, date, id }: Comments): JSX.Element 
       <div className="reviews__info">
         <div className="reviews__rating rating">
           <div className="reviews__stars rating__stars">
-            <span style={{ width: `${rating * 20}%` }} />
+            <span style={{width: `${rating * 20}%`}} />
             <span className="visually-hidden">Rating</span>
           </div>
         </div>

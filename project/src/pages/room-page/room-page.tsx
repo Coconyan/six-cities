@@ -15,18 +15,13 @@ import {
   useAppSelector
 } from '../../hooks';
 import {
-  fetchCurrentOffer,
-  fetchCurrentOffersComments,
-  fetchCurrentOffersNearby
+  fetchCurrentOffer, fetchCurrentOffersComments, fetchCurrentOffersNearby
 } from '../../store/api-actions';
 import firstLetterToUpperCase from '../../utils';
 
 function RoomPage(): JSX.Element {
   const dispatch = useAppDispatch();
   const {currentOffer: offer, currentOffersNearby, currentOffersComments} = useAppSelector(({DATA}) => DATA);
-  // const offer = useAppSelector(({DATA}) => DATA.currentOffer);
-  // const currentOffersNearby = useAppSelector(({DATA}) => DATA.currentOffersNearby);
-  // const currentOffersComments = useAppSelector(({DATA}) => DATA.currentOffersComments);
   const {id} = useParams();
 
   useEffect(() => {
