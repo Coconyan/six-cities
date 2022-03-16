@@ -1,15 +1,15 @@
 import { useEffect } from 'react';
 import {
-  Navigate,
   useParams
 } from 'react-router-dom';
+import { SpinnerCircular } from 'spinners-react';
 import HeaderLoginInfo from '../../components/header-login-info/header-login-info';
 import ListCards from '../../components/list-cards/list-cards';
 import Logo from '../../components/logo/logo';
 import Map from '../../components/map/map';
 import PremiumMark from '../../components/premium-mark/premium-mark';
 import RoomReviewsList from '../../components/room-reviews-list/room-reviews-list';
-import { AppRoute } from '../../const';
+import { SPINNER_COLOR } from '../../const';
 import {
   useAppDispatch,
   useAppSelector
@@ -24,6 +24,9 @@ import firstLetterToUpperCase from '../../utils';
 function RoomPage(): JSX.Element {
   const dispatch = useAppDispatch();
   const {currentOffer: offer, currentOffersNearby, currentOffersComments} = useAppSelector(({DATA}) => DATA);
+  // const offer = useAppSelector(({DATA}) => DATA.currentOffer);
+  // const currentOffersNearby = useAppSelector(({DATA}) => DATA.currentOffersNearby);
+  // const currentOffersComments = useAppSelector(({DATA}) => DATA.currentOffersComments);
   const {id} = useParams();
 
   useEffect(() => {
@@ -34,8 +37,8 @@ function RoomPage(): JSX.Element {
     }
   }, [dispatch, id, offer, currentOffersNearby, currentOffersComments]);
 
-  if (!offer) {
-    return <Navigate to={AppRoute.Root} />;
+  if (!offer || offer.id !== Number(id)) {
+    return <SpinnerCircular color={SPINNER_COLOR} />;
   }
 
   const {city, title, isPremium, rating, type, bedrooms, maxAdults, price, isFavorite, host, description} = offer;

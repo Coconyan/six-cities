@@ -55,6 +55,7 @@ export const fetchCurrentOffer = createAsyncThunk(
       store.dispatch(loadCurrentOffer(data));
     } catch (error) {
       errorHandle(error);
+      store.dispatch(redirectToRoute(AppRoute.NotFound));
     }
   },
 );

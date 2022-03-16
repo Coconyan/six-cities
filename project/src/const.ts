@@ -2,7 +2,8 @@ export enum AppRoute {
   SignIn = '/login',
   Favorites = '/favorites',
   Room = '/room',
-  Root = '/'
+  Root = '/',
+  NotFound = '*'
 }
 
 export enum AuthorizationStatus {
