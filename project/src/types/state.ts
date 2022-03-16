@@ -15,6 +15,7 @@ export type Data = {
   currentOffersNearby: Offers | null,
   currentOffersComments: Comments[] | null,
   currentSortType: string,
+  favoriteOffers: Offers | null,
   isDataLoaded: boolean,
 };
 

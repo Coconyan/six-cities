@@ -21,6 +21,7 @@ import {
 } from '../../utils';
 import { SpinnerCircular } from 'spinners-react';
 import HeaderLoginInfo from '../../components/header-login-info/header-login-info';
+import MainEmpty from '../../components/main-empty/main-empty';
 
 function MainPage(): JSX.Element {
   const {currentCity, offers, currentSortType, isDataLoaded} = useAppSelector(({DATA}) => DATA);
@@ -31,10 +32,10 @@ function MainPage(): JSX.Element {
   );
 
   const onListItemHover = useCallback((id: string) => {
-    const currentOffer = offers.find((offer) => String(offer.id) === id);
+    const currentOffer = currentCityOffers.find((offer) => String(offer.id) === id);
     setActiveCard(currentOffer);
   },
-  [offers],
+  [currentCityOffers],
   );
 
   switch (currentSortType) {
@@ -69,33 +70,37 @@ function MainPage(): JSX.Element {
       </header>
       <main className="page__main page__main--index">
         <CitiesList />
-        <div className="cities">
-          <div className="cities__places-container container">
-            <section className="cities__places places">
-              <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{isDataLoaded ? `${currentCityOffers.length} places to stay in ${currentCity.name}` : 'Loading...'}</b>
-              <form className="places__sorting" action="#" method="get">
-                <span className="places__sorting-caption">Sort by</span>
-                <Sort />
-              </form>
-              <div className="cities__places-list places__list tabs__content">
-                {isDataLoaded ? <ListCards offers={currentCityOffers} onListItemHover={onListItemHover}/> : <SpinnerCircular color={SPINNER_COLOR}/>}
+        {currentCityOffers.length === 0
+          ? <MainEmpty />
+          : (
+            <div className="cities">
+              <div className="cities__places-container container">
+                <section className="cities__places places">
+                  <h2 className="visually-hidden">Places</h2>
+                  <b className="places__found">{isDataLoaded ? `${currentCityOffers.length} places to stay in ${currentCity.name}` : 'Loading...'}</b>
+                  <form className="places__sorting" action="#" method="get">
+                    <span className="places__sorting-caption">Sort by</span>
+                    <Sort />
+                  </form>
+                  <div className="cities__places-list places__list tabs__content">
+                    {isDataLoaded ? <ListCards offers={currentCityOffers} onListItemHover={onListItemHover} /> : <SpinnerCircular color={SPINNER_COLOR} />}
+                  </div>
+                </section>
+                <div className="cities__right-section">
+                  <section className="cities__map map" >
+                    {
+                      <Map
+                        key={JSON.stringify(currentCity.location.longitude + currentCity.location.latitude)}
+                        city={currentCity}
+                        offers={currentCityOffers}
+                        activeCard={activeCard}
+                      />
+                    }
+                  </section>
+                </div>
               </div>
-            </section>
-            <div className="cities__right-section">
-              <section className="cities__map map" >
-                {
-                  <Map
-                    key={JSON.stringify(currentCity.location.longitude + currentCity.location.latitude)}
-                    city={currentCity}
-                    offers={currentCityOffers}
-                    activeCard={activeCard}
-                  />
-                }
-              </section>
             </div>
-          </div>
-        </div>
+          )}
       </main>
     </div>
   );

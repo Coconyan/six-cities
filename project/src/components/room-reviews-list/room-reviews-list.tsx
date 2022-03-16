@@ -9,7 +9,7 @@ type PropsType = {
 }
 
 function RoomReviewsList({comments}: PropsType): JSX.Element {
-  const {authorizationStatus} = useAppSelector(({USER}) => USER);
+  const authorizationStatus = useAppSelector(({USER}) => USER.authorizationStatus);
   return (
     <section className="property__reviews reviews">
       <h2 className="reviews__title">Reviews · <span className="reviews__amount">{comments.length}</span></h2>

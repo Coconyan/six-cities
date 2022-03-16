@@ -1,5 +1,6 @@
 import {
   FormEvent,
+  useRef,
   useState
 } from 'react';
 import { useParams } from 'react-router-dom';
@@ -16,30 +17,24 @@ import { CommentDataWithOfferId } from '../../types/comments';
 import Star from '../star/star';
 
 function FormComments(): JSX.Element {
-  const {currentOffer} = useAppSelector(({DATA}) => DATA);
+  const currentOffer = useAppSelector(({DATA}) => DATA.currentOffer);
   const [rating, setRating] = useState(0);
-  const [comment, setComment] = useState('');
+  const comment = useRef<HTMLTextAreaElement | null>(null);
   const {id} = useParams();
   const dispatch = useAppDispatch();
-
-  const fieldChangeHandler = (event: { target: { value: string; }; }) => {
-    const {value} = event.target;
-    setComment(value);
-  };
 
   const onSubmit = (commentData: CommentDataWithOfferId) => {
     dispatch(newCommentAction(commentData));
     dispatch(fetchCurrentOffersComments(Number(id)));
     setRating(0);
-    setComment('');
   };
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    if (rating !== 0 && comment !== '' && currentOffer !== null) {
+    if (rating !== 0 && comment.current !== null && currentOffer !== null) {
       onSubmit({
-        comment: comment,
+        comment: comment.current.value,
         rating: rating,
         id: currentOffer.id,
       });
@@ -62,13 +57,13 @@ function FormComments(): JSX.Element {
         ))}
       </div>
       <textarea
+        ref={comment}
         className="reviews__textarea form__textarea"
         id="review" name="review"
         placeholder="Tell how was your stay, what you like and what can be improved"
         defaultValue={''}
         minLength={COMMENTS_LENGTH.MIN}
         maxLength={COMMENTS_LENGTH.MAX}
-        onChange={fieldChangeHandler}
       />
       <div className="reviews__button-wrapper">
         <p className="reviews__help">

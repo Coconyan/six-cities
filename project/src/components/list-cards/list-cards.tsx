@@ -1,21 +1,26 @@
 import { memo } from 'react';
 import { useAppSelector } from '../../hooks';
-import { Offer } from '../../types/offer';
+import { Offers } from '../../types/offer';
 import PlaceCard from '../place-card/place-card';
 
 type PropsType = {
-  offers: Offer[];
+  offers: Offers;
   onListItemHover?: (listItemName: string) => void;
   placeCardClass?: string;
   placeCardImageClass?: string;
+  isFavoritePage?: boolean;
+  widthImage?: number;
+  heightImage?: number;
 }
 
-function ListCards({offers, onListItemHover, placeCardClass, placeCardImageClass}: PropsType): JSX.Element {
+function ListCards({offers, onListItemHover, placeCardClass, placeCardImageClass, isFavoritePage, widthImage, heightImage}: PropsType): JSX.Element {
   const {currentCity} = useAppSelector(({DATA}) => DATA);
   return (
     <>
       {offers.map((offer) => (
-        offer.city.name === currentCity.name ? <PlaceCard key={offer.id} offer={offer} onListItemHover={onListItemHover} placeCardClass={placeCardClass} placeCardImageClass={placeCardImageClass} /> : ''
+        offer.city.name === currentCity.name
+          ? <PlaceCard key={offer.id} offer={offer} onListItemHover={onListItemHover} placeCardClass={placeCardClass} placeCardImageClass={placeCardImageClass} isFavoritePage={isFavoritePage} widthImage={widthImage} heightImage={heightImage} />
+          : ''
       ))}
     </>
   );

@@ -31,6 +31,7 @@ import {
   loadCurrentOffer,
   loadCurrentOffersComments,
   loadCurrentOffersNearby,
+  loadFavoriteOffers,
   loadOffers
 } from './data/data';
 import { requireAuthorization } from './user-process/user-process';
@@ -55,6 +56,7 @@ export const fetchCurrentOffer = createAsyncThunk(
       store.dispatch(loadCurrentOffer(data));
     } catch (error) {
       errorHandle(error);
+      store.dispatch(redirectToRoute(AppRoute.NotFound));
     }
   },
 );
@@ -77,6 +79,90 @@ export const fetchCurrentOffersComments = createAsyncThunk(
     try {
       const {data} = await api.get<Comments[]>(`${APIRoute.Comments}/${id}`);
       store.dispatch(loadCurrentOffersComments(data));
+    } catch (error) {
+      errorHandle(error);
+    }
+  },
+);
+
+export const getFavoriteOffers = createAsyncThunk(
+  'data/getFavoriteOffers',
+  async () => {
+    try {
+      const {data} = await api.get<Offers>(APIRoute.Favorite);
+      store.dispatch(loadFavoriteOffers(data));
+    } catch (error) {
+      errorHandle(error);
+    }
+  },
+);
+
+export const addOfferToFavorite = createAsyncThunk(
+  'data/addOfferToFavorite',
+  async (offerId: number) => {
+    try {
+      await api.post<number>(`${APIRoute.Favorite}/${offerId}/${1}`);
+      store.dispatch(fetchOffersAction());
+    } catch (error) {
+      errorHandle(error);
+    }
+  },
+);
+
+export const addOfferToFavoritePage = createAsyncThunk(
+  'data/addOfferToFavorite',
+  async (offerId: number) => {
+    try {
+      await api.post<number>(`${APIRoute.Favorite}/${offerId}/${1}`);
+      store.dispatch(getFavoriteOffers());
+    } catch (error) {
+      errorHandle(error);
+    }
+  },
+);
+
+export const addOfferToFavoriteOfferPage = createAsyncThunk(
+  'data/addOfferToFavorite',
+  async (offerId: number) => {
+    try {
+      await api.post<number>(`${APIRoute.Favorite}/${offerId}/${1}`);
+      store.dispatch((fetchCurrentOffer(offerId)));
+    } catch (error) {
+      errorHandle(error);
+    }
+  },
+);
+
+export const removeOfferFromFavorite = createAsyncThunk(
+  'data/removeOfferFromFavorite',
+  async (offerId: number) => {
+    try {
+      await api.post<number>(`${APIRoute.Favorite}/${offerId}/${0}`);
+      store.dispatch(fetchOffersAction());
+    } catch (error) {
+      errorHandle(error);
+    }
+  },
+);
+
+export const removeOfferFromFavoritePage = createAsyncThunk(
+  'data/removeOfferFromFavorite',
+  async (offerId: number) => {
+    try {
+      await api.post<number>(`${APIRoute.Favorite}/${offerId}/${0}`);
+      store.dispatch(getFavoriteOffers());
+    } catch (error) {
+      errorHandle(error);
+    }
+  },
+);
+
+export const removeOfferFromFavoriteOfferPage = createAsyncThunk(
+  'data/removeOfferFromFavorite',
+  async (offerId: number) => {
+    try {
+      await api.post<number>(`${APIRoute.Favorite}/${offerId}/${0}`);
+      store.dispatch((fetchCurrentOffer(offerId)));
     } catch (error) {
       errorHandle(error);
     }
