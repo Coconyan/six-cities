@@ -1,11 +1,11 @@
 import { AuthorizationStatus } from '../../const';
 import { useAppSelector } from '../../hooks';
-import { Comments } from '../../types/comments';
+import { Comment } from '../../types/comments';
 import FormComments from '../form-comments/form-comments';
 import RoomReview from '../room-review/room-review';
 
 type PropsType = {
-  comments: Comments[];
+  comments: Comment[];
 }
 
 function RoomReviewsList({comments}: PropsType): JSX.Element {

@@ -1,6 +1,6 @@
-import { Comments } from '../../types/comments';
+import { Comment } from '../../types/comments';
 
-function RoomReview({user, rating, comment, date, id}: Comments): JSX.Element {
+function RoomReview({user, rating, comment, date, id}: Comment): JSX.Element {
   return (
     <li className="reviews__item" key={id}>
       <div className="reviews__user user">

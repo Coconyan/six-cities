@@ -19,7 +19,7 @@ import { AuthData } from '../types/auth-data';
 import {
   CommentData,
   CommentDataWithOfferId,
-  Comments
+  Comment
 } from '../types/comments';
 import {
   Offer,
@@ -77,7 +77,7 @@ export const fetchCurrentOffersComments = createAsyncThunk(
   'data/fetchCurrentOffersComments',
   async (id: number) => {
     try {
-      const {data} = await api.get<Comments[]>(`${APIRoute.Comments}/${id}`);
+      const {data} = await api.get<Comment[]>(`${APIRoute.Comments}/${id}`);
       store.dispatch(loadCurrentOffersComments(data));
     } catch (error) {
       errorHandle(error);
