@@ -14,8 +14,6 @@ import SignInPage from '../../pages/sign-in-page/sign-in-page';
 import PrivateRoute from '../private-route/private-route';
 import { useAppSelector } from '../../hooks';
 import { SpinnerCircular } from 'spinners-react';
-import HistoryRouter from '../history-route/history-route';
-import browserHistory from '../../browser-history';
 
 function App(): JSX.Element {
   const {isDataLoaded} = useAppSelector(({DATA}) => DATA);
@@ -28,36 +26,34 @@ function App(): JSX.Element {
   }
 
   return (
-    <HistoryRouter history={browserHistory}>
-      <Routes>
-        <Route
-          path={AppRoute.Root}
-          element={<MainPage />}
-        />
-        <Route
-          path={AppRoute.Favorites}
-          element={
-            <PrivateRoute authorizationStatus={authorizationStatus}>
-              <FavoritesPage />
-            </PrivateRoute>
-          }
-        />
-        <Route
-          path={AppRoute.Room}
-          element={<RoomPage />}
-        >
-          <Route path={`${AppRoute.Room}:id`} element={<RoomPage />} />
-        </Route>
-        <Route
-          path={AppRoute.SignIn}
-          element={<SignInPage  />}
-        />
-        <Route
-          path="*"
-          element={<NotFoundPage />}
-        />
-      </Routes>
-    </HistoryRouter>
+    <Routes>
+      <Route
+        path={AppRoute.Root}
+        element={<MainPage />}
+      />
+      <Route
+        path={AppRoute.Favorites}
+        element={
+          <PrivateRoute authorizationStatus={authorizationStatus}>
+            <FavoritesPage />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path={AppRoute.Room}
+        element={<RoomPage />}
+      >
+        <Route path={`${AppRoute.Room}:id`} element={<RoomPage />} />
+      </Route>
+      <Route
+        path={AppRoute.SignIn}
+        element={<SignInPage  />}
+      />
+      <Route
+        path="*"
+        element={<NotFoundPage />}
+      />
+    </Routes>
   );
 }
 
