@@ -64,6 +64,7 @@ function SignInPage(): JSX.Element {
                   name="email"
                   placeholder="Email"
                   required
+                  data-testid="email"
                 />
               </div>
               <div className="login__input-wrapper form__input-wrapper">
@@ -75,6 +76,7 @@ function SignInPage(): JSX.Element {
                   name="password"
                   placeholder="Password"
                   required
+                  data-testid="password"
                 />
               </div>
               <button className="login__submit form__submit button" type="submit">Sign in</button>

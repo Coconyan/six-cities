@@ -1,6 +1,6 @@
 import { AuthorizationStatus } from '../const.js';
 import { store } from '../store/index.js';
-import { Comments } from './comments.js';
+import { Comment } from './comments.js';
 import {
   City,
   Offer,
@@ -13,7 +13,7 @@ export type Data = {
   offers: Offers,
   currentOffer: Offer | null,
   currentOffersNearby: Offers | null,
-  currentOffersComments: Comments[] | null,
+  currentOffersComments: Comment[] | null,
   currentSortType: string,
   favoriteOffers: Offers | null,
   isDataLoaded: boolean,

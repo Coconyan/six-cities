@@ -1,6 +1,6 @@
 import { Host } from './offer';
 
-export type Comments = {
+export type Comment = {
   id: number;
   user: Host;
   rating: number;
