@@ -81,7 +81,9 @@ function PlaceCard({offer, onListItemHover, placeCardClass = '__place-card', pla
           </div>
         </div>
         <h2 className="place-card__name">
-          <a href="#todo">{title}</a>
+          <Link to={`${AppRoute.Room}/${id}`}>
+            {title}
+          </Link>
         </h2>
         <p className="place-card__type">{firstLetterToUpperCase(type)}</p>
       </div>

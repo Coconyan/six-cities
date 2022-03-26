@@ -14,10 +14,12 @@ import SignInPage from '../../pages/sign-in-page/sign-in-page';
 import PrivateRoute from '../private-route/private-route';
 import { useAppSelector } from '../../hooks';
 import { SpinnerCircular } from 'spinners-react';
+import { getLoadedDataStatus } from '../../store/data/selectors';
+import { getAuthorizationStatus } from '../../store/user-process/selectors';
 
 function App(): JSX.Element {
-  const {isDataLoaded} = useAppSelector(({DATA}) => DATA);
-  const {authorizationStatus} = useAppSelector(({USER}) => USER);
+  const isDataLoaded = useAppSelector(getLoadedDataStatus);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
 
   if (!isDataLoaded) {
     return (

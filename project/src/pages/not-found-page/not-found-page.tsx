@@ -1,9 +1,10 @@
 import { Link } from 'react-router-dom';
 import Logo from '../../components/logo/logo';
 import { useAppSelector } from '../../hooks';
+import { getCurrentCity } from '../../store/data/selectors';
 
 function NotFoundPage(): JSX.Element {
-  const {currentCity} = useAppSelector(({DATA}) => DATA);
+  const currentCity = useAppSelector(getCurrentCity);
   return (
     <div className="page page--gray page--login">
       <header className="header">

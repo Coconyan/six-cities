@@ -11,11 +11,12 @@ import {
 import {
   newCommentAction
 } from '../../store/api-actions';
+import { getCurrentOffer } from '../../store/data/selectors';
 import { CommentDataWithOfferId } from '../../types/comments';
 import Star from '../star/star';
 
 function FormComments(): JSX.Element {
-  const currentOffer = useAppSelector(({DATA}) => DATA.currentOffer);
+  const currentOffer = useAppSelector(getCurrentOffer);
   const [rating, setRating] = useState(0);
   const comment = useRef<HTMLTextAreaElement | null>(null);
   const dispatch = useAppDispatch();

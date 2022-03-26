@@ -1,7 +1,8 @@
 import { useAppSelector } from '../../hooks';
+import { getCurrentCity } from '../../store/data/selectors';
 
 function MainEmpty(): JSX.Element {
-  const currentCity = useAppSelector(({DATA}) => DATA.currentCity);
+  const currentCity = useAppSelector(getCurrentCity);
   return (
     <div className="cities">
       <div className="cities__places-container cities__places-container--empty container">

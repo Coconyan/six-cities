@@ -1,5 +1,6 @@
 import { AuthorizationStatus } from '../../const';
 import { useAppSelector } from '../../hooks';
+import { getAuthorizationStatus } from '../../store/user-process/selectors';
 import { Comment } from '../../types/comments';
 import FormComments from '../form-comments/form-comments';
 import RoomReview from '../room-review/room-review';
@@ -9,7 +10,7 @@ type PropsType = {
 }
 
 function RoomReviewsList({comments}: PropsType): JSX.Element {
-  const authorizationStatus = useAppSelector(({USER}) => USER.authorizationStatus);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
   return (
     <section className="property__reviews reviews">
       <h2 className="reviews__title">Reviews · <span className="reviews__amount">{comments.length}</span></h2>

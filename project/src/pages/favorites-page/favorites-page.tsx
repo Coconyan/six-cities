@@ -8,14 +8,15 @@ import {
   useAppDispatch,
   useAppSelector
 } from '../../hooks';
-import { getFavoriteOffers } from '../../store/api-actions';
+import { fetchFavoriteOffers } from '../../store/api-actions';
+import { getFavoriteOffers } from '../../store/data/selectors';
 
 function FavoritesPage(): JSX.Element {
-  const {favoriteOffers} = useAppSelector(({DATA}) => DATA);
+  const favoriteOffers = useAppSelector(getFavoriteOffers);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(getFavoriteOffers());
+    dispatch(fetchFavoriteOffers());
   }, [dispatch]);
 
   if (!favoriteOffers) {

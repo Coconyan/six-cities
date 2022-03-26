@@ -22,9 +22,18 @@ import {
 import { SpinnerCircular } from 'spinners-react';
 import HeaderLoginInfo from '../../components/header-login-info/header-login-info';
 import MainEmpty from '../../components/main-empty/main-empty';
+import {
+  getCurrentCity,
+  getCurrentSortType,
+  getLoadedDataStatus,
+  getOffers
+} from '../../store/data/selectors';
 
 function MainPage(): JSX.Element {
-  const {currentCity, offers, currentSortType, isDataLoaded} = useAppSelector(({DATA}) => DATA);
+  const currentCity = useAppSelector(getCurrentCity);
+  const offers = useAppSelector(getOffers);
+  const currentSortType = useAppSelector(getCurrentSortType);
+  const isDataLoaded = useAppSelector(getLoadedDataStatus);
   let currentCityOffers = useMemo(() => offers.filter((offer) => offer.city.name === currentCity.name), [currentCity.name, offers]);
 
   const [activeCard, setActiveCard] = useState<Offer | undefined>(

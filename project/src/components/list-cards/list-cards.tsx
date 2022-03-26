@@ -1,5 +1,5 @@
-import { memo } from 'react';
 import { useAppSelector } from '../../hooks';
+import { getCurrentCity } from '../../store/data/selectors';
 import { Offers } from '../../types/offer';
 import PlaceCard from '../place-card/place-card';
 
@@ -14,7 +14,7 @@ type PropsType = {
 }
 
 function ListCards({offers, onListItemHover, placeCardClass, placeCardImageClass, isFavoritePage, widthImage, heightImage}: PropsType): JSX.Element {
-  const {currentCity} = useAppSelector(({DATA}) => DATA);
+  const currentCity = useAppSelector(getCurrentCity);
   return (
     <>
       {offers.map((offer) => (
@@ -26,4 +26,4 @@ function ListCards({offers, onListItemHover, placeCardClass, placeCardImageClass
   );
 }
 
-export default memo(ListCards);
+export default ListCards;

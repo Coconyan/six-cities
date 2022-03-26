@@ -6,10 +6,16 @@ import {
   useAppSelector
 } from '../../hooks';
 import { changeCity } from '../../store/data/data';
+import {
+  getCities,
+  getCurrentCity
+} from '../../store/data/selectors';
 
 function CitiesList(): JSX.Element {
   const dispatch = useAppDispatch();
-  const {cities, currentCity} = useAppSelector(({DATA}) => DATA);
+  const cities = useAppSelector(getCities);
+  const currentCity = useAppSelector(getCurrentCity);
+
   return (
     <>
       <h1 className="visually-hidden">Cities</h1>

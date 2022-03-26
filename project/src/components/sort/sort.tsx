@@ -1,15 +1,15 @@
-import { memo } from 'react';
 import { SortTypes } from '../../const';
 import {
   useAppDispatch,
   useAppSelector
 } from '../../hooks';
 import { changeSortType } from '../../store/data/data';
+import { getCurrentSortType } from '../../store/data/selectors';
 
 
 function Sort(): JSX.Element {
   const dispatch = useAppDispatch();
-  const {currentSortType} = useAppSelector(({DATA}) => DATA);
+  const currentSortType = useAppSelector(getCurrentSortType);
 
   const onListClick = ():void => {
     const sortListElement = document.querySelector('.places__options');
@@ -39,4 +39,4 @@ function Sort(): JSX.Element {
   );
 }
 
-export default memo(Sort);
+export default Sort;

@@ -20,7 +20,7 @@ const store = mockStore({
     currentCity: cities[0],
     currentOffer: makeFakeOffer(),
     currentOffersNearby: [makeFakeOffer(), makeFakeOffer(), makeFakeOffer()],
-    currentOffersComments: [makeFakeComment(), makeFakeComment()],
+    currentOfferComments: [makeFakeComment(), makeFakeComment()],
   },
 });
 

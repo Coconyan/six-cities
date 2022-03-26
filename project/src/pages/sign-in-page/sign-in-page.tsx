@@ -10,10 +10,11 @@ import {
   useAppSelector
 } from '../../hooks';
 import { loginAction } from '../../store/api-actions';
+import { getCurrentCity } from '../../store/data/selectors';
 import { AuthData } from '../../types/auth-data';
 
 function SignInPage(): JSX.Element {
-  const {currentCity} = useAppSelector(({DATA}) => DATA);
+  const currentCity = useAppSelector(getCurrentCity);
   const loginRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
 

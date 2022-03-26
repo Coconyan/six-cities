@@ -17,7 +17,7 @@ const store = mockStore({
   DATA: {
     currentOffer: makeFakeOffer(),
     currentOffersNearby: [makeFakeOffer()],
-    currentOffersComments: [makeFakeOffer()],
+    currentOfferComments: [makeFakeOffer()],
   },
 });
 

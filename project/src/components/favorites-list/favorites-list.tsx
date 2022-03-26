@@ -1,4 +1,5 @@
 import { useAppSelector } from '../../hooks';
+import { getCities } from '../../store/data/selectors';
 import { Offers } from '../../types/offer';
 import FavoritesListItem from '../favorites-list-item/favorites-list-item';
 
@@ -7,7 +8,7 @@ type PropsType = {
 }
 
 function FavoritesList({favoriteOffers}: PropsType): JSX.Element {
-  const {cities} = useAppSelector(({DATA}) => DATA);
+  const cities = useAppSelector(getCities);
   const citiesArray = cities.map((city) => city.name);
   return (
     <ul className="favorites__list" data-testid="favorites-list">
