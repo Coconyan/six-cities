@@ -49,6 +49,7 @@ function MainPage(): JSX.Element {
       currentCityOffers.sort(sortRatingToHigh);
       break;
     case SortTypes.Popular:
+      currentCityOffers = offers.filter((offer) => offer.city.name === currentCity.name);
       break;
     default:
       currentCityOffers = offers.filter((offer) => offer.city.name === currentCity.name);

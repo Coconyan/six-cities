@@ -48,7 +48,7 @@ describe('Reducer: data', () => {
       .toEqual({
         cities,
         currentCity: cities[2],
-        offers: offers,
+        offers: [],
         currentOffer: null,
         currentOffersNearby: null,
         currentOffersComments: null,
@@ -63,7 +63,7 @@ describe('Reducer: data', () => {
       .toEqual({
         cities,
         currentCity: cities[0],
-        offers: offers,
+        offers: [],
         currentOffer: null,
         currentOffersNearby: null,
         currentOffersComments: null,
@@ -74,7 +74,7 @@ describe('Reducer: data', () => {
   });
 
   it('should update offers by load offers', () => {
-    expect(data.reducer(state, loadOffers(state.offers)))
+    expect(data.reducer(state, loadOffers(offers)))
       .toEqual({
         cities,
         currentCity: cities[0],
@@ -84,7 +84,7 @@ describe('Reducer: data', () => {
         currentOffersComments: null,
         currentSortType: SortTypes.Popular,
         favoriteOffers: null,
-        isDataLoaded: false,
+        isDataLoaded: true,
       });
   });
 
@@ -93,7 +93,7 @@ describe('Reducer: data', () => {
       .toEqual({
         cities,
         currentCity: cities[0],
-        offers: offers,
+        offers: [],
         currentOffer: offers[0],
         currentOffersNearby: null,
         currentOffersComments: null,
@@ -108,7 +108,7 @@ describe('Reducer: data', () => {
       .toEqual({
         cities,
         currentCity: cities[0],
-        offers: offers,
+        offers: [],
         currentOffer: null,
         currentOffersNearby: offers,
         currentOffersComments: null,
@@ -123,7 +123,7 @@ describe('Reducer: data', () => {
       .toEqual({
         cities,
         currentCity: cities[0],
-        offers: offers,
+        offers: [],
         currentOffer: null,
         currentOffersNearby: null,
         currentOffersComments: comments,
@@ -138,7 +138,7 @@ describe('Reducer: data', () => {
       .toEqual({
         cities,
         currentCity: cities[0],
-        offers: offers,
+        offers: [],
         currentOffer: null,
         currentOffersNearby: null,
         currentOffersComments: null,

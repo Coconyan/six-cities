@@ -21,7 +21,7 @@ describe('Component: SignInPage', () => {
       </Provider>,
     );
 
-    expect(screen.getByText(/Sign in/i)).toBeInTheDocument();
+    expect(screen.getAllByText(/Sign in/i)).toBeInTheDocument();
     expect(screen.getByLabelText(/E-mail/i)).toBeInTheDocument();
     expect(screen.getByLabelText(/Password/i)).toBeInTheDocument();
 

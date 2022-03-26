@@ -5,12 +5,23 @@ import { configureMockStore } from '@jedmao/redux-mock-store';
 import HistoryRouter from '../history-route/history-route';
 import { AuthorizationStatus, AppRoute } from '../../const';
 import App from './app';
+import { cities } from '../../mocks/cities';
+import { makeFakeOffer } from '../../mocks/fake-offer';
+import { makeFakeComment } from '../../mocks/fake-comment';
 
 const mockStore = configureMockStore();
 
 const store = mockStore({
   USER: { authorizationStatus: AuthorizationStatus.Auth },
-  DATA: { isDataLoaded: true },
+  DATA: {
+    cities: cities,
+    isDataLoaded: true,
+    offers: [makeFakeOffer(), makeFakeOffer(), makeFakeOffer()],
+    currentCity: cities[0],
+    currentOffer: makeFakeOffer(),
+    currentOffersNearby: [makeFakeOffer(), makeFakeOffer(), makeFakeOffer()],
+    currentOffersComments: [makeFakeComment(), makeFakeComment()],
+  },
 });
 
 const history = createMemoryHistory();
@@ -37,7 +48,6 @@ describe('Application Routing', () => {
 
     render(fakeApp);
 
-    expect(screen.getByText(/Sign in/i)).toBeInTheDocument();
     expect(screen.getByLabelText(/E-mail/i)).toBeInTheDocument();
     expect(screen.getByLabelText(/Password/i)).toBeInTheDocument();
   });

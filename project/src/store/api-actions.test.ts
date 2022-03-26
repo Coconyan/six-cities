@@ -55,7 +55,7 @@ describe('Async actions', () => {
 
     expect(actions).toContain(requireAuthorization.toString());
 
-    expect(Storage.prototype.setItem).toBeCalledTimes(1);
+    expect(Storage.prototype.setItem).toBeCalled();
     expect(Storage.prototype.setItem).toBeCalledWith('six-cities-token', 'secret');
   });
 
@@ -73,7 +73,7 @@ describe('Async actions', () => {
 
     expect(actions).toContain(requireAuthorization.toString());
 
-    expect(Storage.prototype.removeItem).toBeCalledTimes(1);
+    expect(Storage.prototype.removeItem).toBeCalled();
     expect(Storage.prototype.removeItem).toBeCalledWith('six-cities-token');
   });
 
@@ -155,7 +155,7 @@ describe('Async actions', () => {
   it('should dispatch fetchOffersAction when POST /favorite', async () => {
     mockAPI
       .onPost(`${APIRoute.Favorite}/1/1`)
-      .reply(200);
+      .reply(200, []);
 
     const store = mockStore();
 
@@ -169,7 +169,7 @@ describe('Async actions', () => {
   it('should dispatch getFavoriteOffers when POST /favorite', async () => {
     mockAPI
       .onPost(`${APIRoute.Favorite}/1/1`)
-      .reply(200);
+      .reply(200, []);
 
     const store = mockStore();
 
@@ -183,7 +183,7 @@ describe('Async actions', () => {
   it('should dispatch fetchCurrentOffer when POST /favorite', async () => {
     mockAPI
       .onPost(`${APIRoute.Favorite}/1/1`)
-      .reply(200);
+      .reply(200, []);
 
     const store = mockStore();
 
@@ -197,7 +197,7 @@ describe('Async actions', () => {
   it('should dispatch fetchOffersAction when POST /favorite/0', async () => {
     mockAPI
       .onPost(`${APIRoute.Favorite}/1/0`)
-      .reply(200);
+      .reply(200, []);
 
     const store = mockStore();
 
@@ -211,7 +211,7 @@ describe('Async actions', () => {
   it('should dispatch getFavoriteOffers when POST /favorite/0', async () => {
     mockAPI
       .onPost(`${APIRoute.Favorite}/1/0`)
-      .reply(200);
+      .reply(200, []);
 
     const store = mockStore();
 
@@ -225,7 +225,7 @@ describe('Async actions', () => {
   it('should dispatch fetchCurrentOffer when POST /favorite/0', async () => {
     mockAPI
       .onPost(`${APIRoute.Favorite}/1/0`)
-      .reply(200);
+      .reply(200, []);
 
 
     const store = mockStore();

@@ -5,30 +5,33 @@ import {
 } from '@testing-library/react';
 import { createMemoryHistory } from 'history';
 import { Provider } from 'react-redux';
-import { cities } from '../../mocks/cities';
+import { SortTypes } from '../../const';
 import HistoryRouter from '../history-route/history-route';
-import MainEmpty from './main-empty';
+import Sort from './sort';
 
 const mockStore = configureMockStore();
+const currentSortType = SortTypes.Popular;
 
 const store = mockStore({
-  DATA: {
-    currentCity: cities[0],
-  },
+  DATA: { currentSortType: currentSortType },
 });
 
 const history = createMemoryHistory();
 
-describe('Component: MainEmpty', () => {
+describe('Component: Star', () => {
   it('should render correctly', () => {
+
     render(
       <Provider store={store}>
         <HistoryRouter history={history}>
-          <MainEmpty />
+          <Sort />
         </HistoryRouter>
-      </Provider>);
+      </Provider>,
+    );
 
-    expect(screen.getByText(/No places to stay available/i)).toBeInTheDocument();
-    expect(screen.getByText(/We could not find any property available at the moment in/i)).toBeInTheDocument();
+    expect(screen.getAllByText(currentSortType)).toBeInTheDocument();
+    expect(screen.getByText(SortTypes.PriceHighToLow)).toBeInTheDocument();
+    expect(screen.getByText(SortTypes.PriceLowToHigh)).toBeInTheDocument();
+    expect(screen.getByText(SortTypes.RatingLowToHigh)).toBeInTheDocument();
   });
 });

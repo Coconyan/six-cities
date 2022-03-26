@@ -220,6 +220,8 @@ export const newCommentAction = createAsyncThunk<void, CommentDataWithOfferId, {
   async ({comment, rating, id}: CommentDataWithOfferId, {dispatch, extra: api}) => {
     try {
       await api.post<CommentData>(`${APIRoute.Comments}/${id}`, {comment, rating});
+      const {data} = await api.get<Comment[]>(`${APIRoute.Comments}/${id}`);
+      dispatch(loadCurrentOffersComments(data));
     } catch (error) {
       errorHandle(error);
       dispatch(requireAuthorization(AuthorizationStatus.NoAuth));

@@ -7,7 +7,7 @@ import { Offer } from '../types/offer';
 import { cities } from './cities';
 
 export const makeFakeOffer = (): Offer => ({
-  city: cities[datatype.number(6)],
+  city: cities[0],
   previewImage: internet.avatar(),
   images: [internet.avatar(), internet.avatar(), internet.avatar()],
   title: name.title(),

@@ -10,6 +10,7 @@ import { changeSortType } from '../../store/data/data';
 function Sort(): JSX.Element {
   const dispatch = useAppDispatch();
   const {currentSortType} = useAppSelector(({DATA}) => DATA);
+
   const onListClick = ():void => {
     const sortListElement = document.querySelector('.places__options');
     sortListElement && sortListElement.classList.toggle('places__options--opened');

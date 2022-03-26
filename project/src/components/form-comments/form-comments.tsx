@@ -3,14 +3,12 @@ import {
   useRef,
   useState
 } from 'react';
-import { useParams } from 'react-router-dom';
 import { COMMENTS_LENGTH } from '../../const';
 import {
   useAppDispatch,
   useAppSelector
 } from '../../hooks';
 import {
-  fetchCurrentOffersComments,
   newCommentAction
 } from '../../store/api-actions';
 import { CommentDataWithOfferId } from '../../types/comments';
@@ -20,12 +18,10 @@ function FormComments(): JSX.Element {
   const currentOffer = useAppSelector(({DATA}) => DATA.currentOffer);
   const [rating, setRating] = useState(0);
   const comment = useRef<HTMLTextAreaElement | null>(null);
-  const {id} = useParams();
   const dispatch = useAppDispatch();
 
   const onSubmit = (commentData: CommentDataWithOfferId) => {
     dispatch(newCommentAction(commentData));
-    dispatch(fetchCurrentOffersComments(Number(id)));
     setRating(0);
   };
 
