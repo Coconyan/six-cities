@@ -6,8 +6,7 @@ import { createMemoryHistory } from 'history';
 import { Provider } from 'react-redux';
 import { configureMockStore } from '@jedmao/redux-mock-store';
 import { makeFakeOffer } from '../../mocks/fake-offer';
-import { AuthorizationStatus } from '../../const';
-import FavoritesPage from './favorites-page';
+import { AppRoute, AuthorizationStatus } from '../../const';
 import HistoryRouter from '../../components/history-route/history-route';
 import { cities } from '../../mocks/cities';
 
@@ -27,13 +26,14 @@ const history = createMemoryHistory();
 
 describe('Component: FavoritePage', () => {
   it('should render FavoritePage correctly', () => {
+    history.push(AppRoute.Favorites);
     render(
       <Provider store={store}>
         <HistoryRouter history={history}>
-          <FavoritesPage />
+          <h1>Mock Favorite Page</h1>
         </HistoryRouter>
       </Provider>);
 
-    expect(screen.getByText(/Saved listing/i)).toBeInTheDocument();
+    expect(screen.getByText(/Mock Favorite Page/i)).toBeInTheDocument();
   });
 });

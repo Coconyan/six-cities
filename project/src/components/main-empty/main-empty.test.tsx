@@ -5,6 +5,7 @@ import {
 } from '@testing-library/react';
 import { createMemoryHistory } from 'history';
 import { Provider } from 'react-redux';
+import { AppRoute } from '../../const';
 import { cities } from '../../mocks/cities';
 import HistoryRouter from '../history-route/history-route';
 import MainEmpty from './main-empty';
@@ -21,6 +22,8 @@ const history = createMemoryHistory();
 
 describe('Component: MainEmpty', () => {
   it('should render correctly', () => {
+    history.push(AppRoute.Root);
+
     render(
       <Provider store={store}>
         <HistoryRouter history={history}>

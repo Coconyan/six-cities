@@ -9,12 +9,11 @@ type PropsType = {
 
 function FavoritesList({favoriteOffers}: PropsType): JSX.Element {
   const cities = useAppSelector(getCities);
-  const citiesArray = cities.map((city) => city.name);
   return (
     <ul className="favorites__list" data-testid="favorites-list">
-      {citiesArray.map((city) => (
-        favoriteOffers.find((offer) => offer.city.name === city)
-          ? <FavoritesListItem key={city} favoriteOffers={favoriteOffers.filter((offer) => offer.city.name === city)} city={city} />
+      {cities.map((city) => (
+        favoriteOffers.find((offer) => offer.city.name === city.name)
+          ? <FavoritesListItem key={city.name} favoriteOffers={favoriteOffers.filter((offer) => offer.city.name === city.name)} city={city} />
           : ''
       ))}
     </ul>

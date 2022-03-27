@@ -34,7 +34,7 @@ describe('Component: FavoritesListItem', () => {
     render(
       <Provider store={store}>
         <HistoryRouter history={history}>
-          <FavoritesListItem favoriteOffers={[makeFakeOffer(), makeFakeOffer(), makeFakeOffer()]} city={cities[0].name} />
+          <FavoritesListItem favoriteOffers={[makeFakeOffer(), makeFakeOffer(), makeFakeOffer()]} city={cities[0]} />
         </HistoryRouter>
       </Provider>);
 
@@ -49,7 +49,7 @@ describe('Component: FavoritesListItem', () => {
           <Routes>
             <Route
               path={AppRoute.Favorites}
-              element={<FavoritesListItem favoriteOffers={[makeFakeOffer(), makeFakeOffer(), makeFakeOffer()]} city={cities[0].name} />}
+              element={<FavoritesListItem favoriteOffers={[makeFakeOffer(), makeFakeOffer(), makeFakeOffer()]} city={cities[0]} />}
             />
             <Route
               path={AppRoute.Root}

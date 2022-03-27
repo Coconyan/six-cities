@@ -1,6 +1,5 @@
 import {
   useCallback,
-  useMemo,
   useState
 } from 'react';
 import CitiesList from '../../components/cities-list/cities-list';
@@ -34,7 +33,7 @@ function MainPage(): JSX.Element {
   const offers = useAppSelector(getOffers);
   const currentSortType = useAppSelector(getCurrentSortType);
   const isDataLoaded = useAppSelector(getLoadedDataStatus);
-  let currentCityOffers = useMemo(() => offers.filter((offer) => offer.city.name === currentCity.name), [currentCity.name, offers]);
+  let currentCityOffers = offers.filter((offer) => offer.city.name === currentCity.name);
 
   const [activeCard, setActiveCard] = useState<Offer | undefined>(
     undefined,

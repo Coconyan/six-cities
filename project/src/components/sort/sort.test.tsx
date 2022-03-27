@@ -18,7 +18,7 @@ const store = mockStore({
 
 const history = createMemoryHistory();
 
-describe('Component: Star', () => {
+describe('Component: Sort', () => {
   it('should render correctly', () => {
 
     render(
@@ -29,7 +29,8 @@ describe('Component: Star', () => {
       </Provider>,
     );
 
-    expect(screen.getAllByText(currentSortType)).toBeInTheDocument();
+    const sort = screen.getAllByText(currentSortType);
+    expect(sort[0]).toBeInTheDocument();
     expect(screen.getByText(SortTypes.PriceHighToLow)).toBeInTheDocument();
     expect(screen.getByText(SortTypes.PriceLowToHigh)).toBeInTheDocument();
     expect(screen.getByText(SortTypes.RatingLowToHigh)).toBeInTheDocument();
