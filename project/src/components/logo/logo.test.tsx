@@ -23,6 +23,15 @@ describe('Component: Logo', () => {
     expect(screen.getByRole('link')).toBeInTheDocument();
   });
 
+  it('should render correctly if not main logo', () => {
+    render(
+      <HistoryRouter history={history}>
+        <Logo isMain={false}/>
+      </HistoryRouter>);
+
+    expect(screen.getByRole('link')).toHaveClass('header__logo-link');
+  });
+
   it('should redirect to root url when user clicked to link', () => {
     history.push('/fake');
 

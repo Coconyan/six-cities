@@ -3,29 +3,26 @@ import {
   useRef,
   useState
 } from 'react';
-import { useParams } from 'react-router-dom';
 import { COMMENTS_LENGTH } from '../../const';
 import {
   useAppDispatch,
   useAppSelector
 } from '../../hooks';
 import {
-  fetchCurrentOffersComments,
   newCommentAction
 } from '../../store/api-actions';
+import { getCurrentOffer } from '../../store/data/selectors';
 import { CommentDataWithOfferId } from '../../types/comments';
 import Star from '../star/star';
 
 function FormComments(): JSX.Element {
-  const currentOffer = useAppSelector(({DATA}) => DATA.currentOffer);
+  const currentOffer = useAppSelector(getCurrentOffer);
   const [rating, setRating] = useState(0);
   const comment = useRef<HTMLTextAreaElement | null>(null);
-  const {id} = useParams();
   const dispatch = useAppDispatch();
 
   const onSubmit = (commentData: CommentDataWithOfferId) => {
     dispatch(newCommentAction(commentData));
-    dispatch(fetchCurrentOffersComments(Number(id)));
     setRating(0);
   };
 

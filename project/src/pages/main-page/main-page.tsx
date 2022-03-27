@@ -1,6 +1,5 @@
 import {
   useCallback,
-  useMemo,
   useState
 } from 'react';
 import CitiesList from '../../components/cities-list/cities-list';
@@ -22,10 +21,19 @@ import {
 import { SpinnerCircular } from 'spinners-react';
 import HeaderLoginInfo from '../../components/header-login-info/header-login-info';
 import MainEmpty from '../../components/main-empty/main-empty';
+import {
+  getCurrentCity,
+  getCurrentSortType,
+  getLoadedDataStatus,
+  getOffers
+} from '../../store/data/selectors';
 
 function MainPage(): JSX.Element {
-  const {currentCity, offers, currentSortType, isDataLoaded} = useAppSelector(({DATA}) => DATA);
-  let currentCityOffers = useMemo(() => offers.filter((offer) => offer.city.name === currentCity.name), [currentCity.name, offers]);
+  const currentCity = useAppSelector(getCurrentCity);
+  const offers = useAppSelector(getOffers);
+  const currentSortType = useAppSelector(getCurrentSortType);
+  const isDataLoaded = useAppSelector(getLoadedDataStatus);
+  let currentCityOffers = offers.filter((offer) => offer.city.name === currentCity.name);
 
   const [activeCard, setActiveCard] = useState<Offer | undefined>(
     undefined,
@@ -49,6 +57,7 @@ function MainPage(): JSX.Element {
       currentCityOffers.sort(sortRatingToHigh);
       break;
     case SortTypes.Popular:
+      currentCityOffers = offers.filter((offer) => offer.city.name === currentCity.name);
       break;
     default:
       currentCityOffers = offers.filter((offer) => offer.city.name === currentCity.name);

@@ -1,21 +1,23 @@
 import { useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { SpinnerCircular } from 'spinners-react';
 import FavoritesList from '../../components/favorites-list/favorites-list';
 import HeaderLoginInfo from '../../components/header-login-info/header-login-info';
 import Logo from '../../components/logo/logo';
-import { SPINNER_COLOR } from '../../const';
+import { AppRoute, SPINNER_COLOR } from '../../const';
 import {
   useAppDispatch,
   useAppSelector
 } from '../../hooks';
-import { getFavoriteOffers } from '../../store/api-actions';
+import { fetchFavoriteOffers } from '../../store/api-actions';
+import { getFavoriteOffers } from '../../store/data/selectors';
 
 function FavoritesPage(): JSX.Element {
-  const {favoriteOffers} = useAppSelector(({DATA}) => DATA);
+  const favoriteOffers = useAppSelector(getFavoriteOffers);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(getFavoriteOffers());
+    dispatch(fetchFavoriteOffers());
   }, [dispatch]);
 
   if (!favoriteOffers) {
@@ -45,9 +47,9 @@ function FavoritesPage(): JSX.Element {
         </div>
       </main>
       <footer className="footer container">
-        <a className="footer__logo-link" href="main.html">
+        <Link className="footer__logo-link" to={AppRoute.Root}>
           <img className="footer__logo" src="img/logo.svg" alt="6 cities logo" width={64} height={33} />
-        </a>
+        </Link>
       </footer>
     </div>
   );

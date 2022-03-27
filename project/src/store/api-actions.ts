@@ -27,7 +27,7 @@ import { UserData } from '../types/user-data';
 import { redirectToRoute } from './actions';
 import {
   loadCurrentOffer,
-  loadCurrentOffersComments,
+  loadCurrentOfferComments,
   loadCurrentOffersNearby,
   loadFavoriteOffers,
   loadOffers
@@ -83,28 +83,28 @@ export const fetchCurrentOffersNearby = createAsyncThunk<void, number, {
   },
 );
 
-export const fetchCurrentOffersComments = createAsyncThunk<void, number, {
+export const fetchcurrentOfferComments = createAsyncThunk<void, number, {
   dispatch: AppDispatch,
   state: State,
   extra: AxiosInstance
 }>(
-  'data/fetchCurrentOffersComments',
+  'data/fetchcurrentOfferComments',
   async (id: number, {dispatch, extra: api}) => {
     try {
       const {data} = await api.get<Comment[]>(`${APIRoute.Comments}/${id}`);
-      dispatch(loadCurrentOffersComments(data));
+      dispatch(loadCurrentOfferComments(data));
     } catch (error) {
       errorHandle(error);
     }
   },
 );
 
-export const getFavoriteOffers = createAsyncThunk<void, undefined, {
+export const fetchFavoriteOffers = createAsyncThunk<void, undefined, {
   dispatch: AppDispatch,
   state: State,
   extra: AxiosInstance
 }>(
-  'data/getFavoriteOffers',
+  'data/fetchFavoriteOffers',
   async (_arg, {dispatch, extra: api}) => {
     try {
       const {data} = await api.get<Offers>(APIRoute.Favorite);
@@ -140,7 +140,7 @@ export const addOfferToFavoritePage = createAsyncThunk<void, number, {
   async (offerId: number, {dispatch, extra: api}) => {
     try {
       await api.post<number>(`${APIRoute.Favorite}/${offerId}/${1}`);
-      dispatch(getFavoriteOffers());
+      dispatch(fetchFavoriteOffers());
     } catch (error) {
       errorHandle(error);
     }
@@ -188,7 +188,7 @@ export const removeOfferFromFavoritePage = createAsyncThunk<void, number, {
   async (offerId: number, {dispatch, extra: api}) => {
     try {
       await api.post<number>(`${APIRoute.Favorite}/${offerId}/${0}`);
-      dispatch(getFavoriteOffers());
+      dispatch(fetchFavoriteOffers());
     } catch (error) {
       errorHandle(error);
     }
@@ -220,6 +220,8 @@ export const newCommentAction = createAsyncThunk<void, CommentDataWithOfferId, {
   async ({comment, rating, id}: CommentDataWithOfferId, {dispatch, extra: api}) => {
     try {
       await api.post<CommentData>(`${APIRoute.Comments}/${id}`, {comment, rating});
+      const {data} = await api.get<Comment[]>(`${APIRoute.Comments}/${id}`);
+      dispatch(loadCurrentOfferComments(data));
     } catch (error) {
       errorHandle(error);
       dispatch(requireAuthorization(AuthorizationStatus.NoAuth));

@@ -1,5 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { NameSpace, SortTypes } from '../../const';
+import {
+  NameSpace,
+  SortTypes
+} from '../../const';
 import { cities } from '../../mocks/cities';
 import { Data } from '../../types/state';
 
@@ -9,7 +12,7 @@ const initialState: Data = {
   offers: [],
   currentOffer: null,
   currentOffersNearby: null,
-  currentOffersComments: null,
+  currentOfferComments: null,
   currentSortType: SortTypes.Popular,
   favoriteOffers: null,
   isDataLoaded: false,
@@ -35,8 +38,8 @@ export const data = createSlice({
     loadCurrentOffersNearby: (state, action) => {
       state.currentOffersNearby = action.payload;
     },
-    loadCurrentOffersComments: (state, action) => {
-      state.currentOffersComments = action.payload;
+    loadCurrentOfferComments: (state, action) => {
+      state.currentOfferComments = action.payload;
     },
     loadFavoriteOffers: (state, action) => {
       state.favoriteOffers = action.payload;
@@ -44,4 +47,4 @@ export const data = createSlice({
   },
 });
 
-export const { changeCity, changeSortType, loadOffers, loadCurrentOffer, loadCurrentOffersComments, loadCurrentOffersNearby, loadFavoriteOffers } = data.actions;
+export const { changeCity, changeSortType, loadOffers, loadCurrentOffer, loadCurrentOfferComments, loadCurrentOffersNearby, loadFavoriteOffers } = data.actions;

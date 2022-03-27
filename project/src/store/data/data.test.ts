@@ -7,7 +7,7 @@ import {
   changeSortType,
   data,
   loadCurrentOffer,
-  loadCurrentOffersComments,
+  loadCurrentOfferComments,
   loadCurrentOffersNearby,
   loadFavoriteOffers,
   loadOffers
@@ -21,7 +21,7 @@ const state = {
   offers: [],
   currentOffer: null,
   currentOffersNearby: null,
-  currentOffersComments: null,
+  currentOfferComments: null,
   currentSortType: SortTypes.Popular,
   favoriteOffers: null,
   isDataLoaded: false,
@@ -36,7 +36,7 @@ describe('Reducer: data', () => {
         offers: [],
         currentOffer: null,
         currentOffersNearby: null,
-        currentOffersComments: null,
+        currentOfferComments: null,
         currentSortType: SortTypes.Popular,
         favoriteOffers: null,
         isDataLoaded: false,
@@ -48,10 +48,10 @@ describe('Reducer: data', () => {
       .toEqual({
         cities,
         currentCity: cities[2],
-        offers: offers,
+        offers: [],
         currentOffer: null,
         currentOffersNearby: null,
-        currentOffersComments: null,
+        currentOfferComments: null,
         currentSortType: SortTypes.Popular,
         favoriteOffers: null,
         isDataLoaded: false,
@@ -63,10 +63,10 @@ describe('Reducer: data', () => {
       .toEqual({
         cities,
         currentCity: cities[0],
-        offers: offers,
+        offers: [],
         currentOffer: null,
         currentOffersNearby: null,
-        currentOffersComments: null,
+        currentOfferComments: null,
         currentSortType: SortTypes.RatingLowToHigh,
         favoriteOffers: null,
         isDataLoaded: false,
@@ -74,17 +74,17 @@ describe('Reducer: data', () => {
   });
 
   it('should update offers by load offers', () => {
-    expect(data.reducer(state, loadOffers(state.offers)))
+    expect(data.reducer(state, loadOffers(offers)))
       .toEqual({
         cities,
         currentCity: cities[0],
         offers: offers,
         currentOffer: null,
         currentOffersNearby: null,
-        currentOffersComments: null,
+        currentOfferComments: null,
         currentSortType: SortTypes.Popular,
         favoriteOffers: null,
-        isDataLoaded: false,
+        isDataLoaded: true,
       });
   });
 
@@ -93,10 +93,10 @@ describe('Reducer: data', () => {
       .toEqual({
         cities,
         currentCity: cities[0],
-        offers: offers,
+        offers: [],
         currentOffer: offers[0],
         currentOffersNearby: null,
-        currentOffersComments: null,
+        currentOfferComments: null,
         currentSortType: SortTypes.Popular,
         favoriteOffers: null,
         isDataLoaded: false,
@@ -108,10 +108,10 @@ describe('Reducer: data', () => {
       .toEqual({
         cities,
         currentCity: cities[0],
-        offers: offers,
+        offers: [],
         currentOffer: null,
         currentOffersNearby: offers,
-        currentOffersComments: null,
+        currentOfferComments: null,
         currentSortType: SortTypes.Popular,
         favoriteOffers: null,
         isDataLoaded: false,
@@ -119,14 +119,14 @@ describe('Reducer: data', () => {
   });
 
   it('should update current offer comments by load current offer comments', () => {
-    expect(data.reducer(state, loadCurrentOffersComments(comments)))
+    expect(data.reducer(state, loadCurrentOfferComments(comments)))
       .toEqual({
         cities,
         currentCity: cities[0],
-        offers: offers,
+        offers: [],
         currentOffer: null,
         currentOffersNearby: null,
-        currentOffersComments: comments,
+        currentOfferComments: comments,
         currentSortType: SortTypes.Popular,
         favoriteOffers: null,
         isDataLoaded: false,
@@ -138,10 +138,10 @@ describe('Reducer: data', () => {
       .toEqual({
         cities,
         currentCity: cities[0],
-        offers: offers,
+        offers: [],
         currentOffer: null,
         currentOffersNearby: null,
-        currentOffersComments: null,
+        currentOfferComments: null,
         currentSortType: SortTypes.Popular,
         favoriteOffers: offers,
         isDataLoaded: false,

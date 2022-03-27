@@ -10,9 +10,10 @@ import {
 } from '../../hooks';
 import { getEmail } from '../../services/token';
 import { logoutAction } from '../../store/api-actions';
+import { getAuthorizationStatus } from '../../store/user-process/selectors';
 
 function HeaderLoginInfo(): JSX.Element {
-  const {authorizationStatus} = useAppSelector(({USER}) => USER);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const email = getEmail();
   const dispatch = useAppDispatch();
 

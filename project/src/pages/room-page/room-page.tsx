@@ -17,24 +17,31 @@ import {
 import {
   addOfferToFavoriteOfferPage,
   fetchCurrentOffer,
-  fetchCurrentOffersComments,
+  fetchcurrentOfferComments,
   fetchCurrentOffersNearby,
   removeOfferFromFavoriteOfferPage
 } from '../../store/api-actions';
+import {
+  getCurrentOffer,
+  getCurrentOfferComments,
+  getCurrentOffersNearby
+} from '../../store/data/selectors';
 import firstLetterToUpperCase from '../../utils';
 
 function RoomPage(): JSX.Element {
+  const offer = useAppSelector(getCurrentOffer);
+  const currentOffersNearby = useAppSelector(getCurrentOffersNearby);
+  const currentOfferComments = useAppSelector(getCurrentOfferComments);
   const dispatch = useAppDispatch();
-  const {currentOffer: offer, currentOffersNearby, currentOffersComments} = useAppSelector(({DATA}) => DATA);
   const {id} = useParams();
 
   useEffect(() => {
     if (offer === null || offer.id !== Number(id)) {
       dispatch(fetchCurrentOffer(Number(id)));
       dispatch(fetchCurrentOffersNearby(Number(id)));
-      dispatch(fetchCurrentOffersComments(Number(id)));
+      dispatch(fetchcurrentOfferComments(Number(id)));
     }
-  }, [dispatch, id, offer, currentOffersNearby, currentOffersComments]);
+  }, [dispatch, id, offer, currentOffersNearby, currentOfferComments]);
 
   if (!offer || offer.id !== Number(id)) {
     return <SpinnerCircular color={SPINNER_COLOR} />;
@@ -138,7 +145,7 @@ function RoomPage(): JSX.Element {
                   </p>
                 </div>
               </div>
-              {currentOffersComments !== null ? <RoomReviewsList comments={currentOffersComments}/> : ''}
+              {currentOfferComments !== null ? <RoomReviewsList comments={currentOfferComments}/> : ''}
             </div>
           </div>
           <section className="property__map map">

@@ -3,13 +3,13 @@ import thunk, { ThunkDispatch } from 'redux-thunk';
 import MockAdapter from 'axios-mock-adapter';
 import { configureMockStore } from '@jedmao/redux-mock-store';
 import { createAPI } from '../services/api';
-import { checkAuthAction, fetchCurrentOffer, fetchCurrentOffersComments, fetchCurrentOffersNearby, fetchOffersAction, getFavoriteOffers, loginAction, logoutAction } from './api-actions';
+import { checkAuthAction, fetchCurrentOffer, fetchcurrentOfferComments, fetchCurrentOffersNearby, fetchOffersAction, fetchFavoriteOffers, loginAction, logoutAction } from './api-actions';
 import { requireAuthorization } from './user-process/user-process';
 import { APIRoute } from '../const';
 import { State } from '../types/state';
 import { AuthData } from '../types/auth-data';
 import { makeFakeOffer } from '../mocks/fake-offer';
-import { loadCurrentOffer, loadCurrentOffersComments, loadCurrentOffersNearby, loadFavoriteOffers, loadOffers } from './data/data';
+import { loadCurrentOffer, loadCurrentOfferComments, loadCurrentOffersNearby, loadFavoriteOffers, loadOffers } from './data/data';
 import { makeFakeComment } from '../mocks/fake-comment';
 
 describe('Async actions', () => {
@@ -55,7 +55,7 @@ describe('Async actions', () => {
 
     expect(actions).toContain(requireAuthorization.toString());
 
-    expect(Storage.prototype.setItem).toBeCalledTimes(1);
+    expect(Storage.prototype.setItem).toBeCalled();
     expect(Storage.prototype.setItem).toBeCalledWith('six-cities-token', 'secret');
   });
 
@@ -73,7 +73,7 @@ describe('Async actions', () => {
 
     expect(actions).toContain(requireAuthorization.toString());
 
-    expect(Storage.prototype.removeItem).toBeCalledTimes(1);
+    expect(Storage.prototype.removeItem).toBeCalled();
     expect(Storage.prototype.removeItem).toBeCalledWith('six-cities-token');
   });
 
@@ -130,11 +130,11 @@ describe('Async actions', () => {
 
     const store = mockStore();
 
-    await store.dispatch(fetchCurrentOffersComments(1));
+    await store.dispatch(fetchcurrentOfferComments(1));
 
     const actions = store.getActions().map(({type}) => type);
 
-    expect(actions).toContain(loadCurrentOffersComments.toString());
+    expect(actions).toContain(loadCurrentOfferComments.toString());
   });
 
   it('should dispatch Load favorite Offers when GET /favorite', async () => {
@@ -145,7 +145,7 @@ describe('Async actions', () => {
 
     const store = mockStore();
 
-    await store.dispatch(getFavoriteOffers());
+    await store.dispatch(fetchFavoriteOffers());
 
     const actions = store.getActions().map(({type}) => type);
 
@@ -155,7 +155,7 @@ describe('Async actions', () => {
   it('should dispatch fetchOffersAction when POST /favorite', async () => {
     mockAPI
       .onPost(`${APIRoute.Favorite}/1/1`)
-      .reply(200);
+      .reply(200, []);
 
     const store = mockStore();
 
@@ -166,14 +166,14 @@ describe('Async actions', () => {
     expect(actions).toContain(loadOffers.toString());
   });
 
-  it('should dispatch getFavoriteOffers when POST /favorite', async () => {
+  it('should dispatch fetchFavoriteOffers when POST /favorite', async () => {
     mockAPI
       .onPost(`${APIRoute.Favorite}/1/1`)
-      .reply(200);
+      .reply(200, []);
 
     const store = mockStore();
 
-    await store.dispatch(getFavoriteOffers());
+    await store.dispatch(fetchFavoriteOffers());
 
     const actions = store.getActions().map(({type}) => type);
 
@@ -183,7 +183,7 @@ describe('Async actions', () => {
   it('should dispatch fetchCurrentOffer when POST /favorite', async () => {
     mockAPI
       .onPost(`${APIRoute.Favorite}/1/1`)
-      .reply(200);
+      .reply(200, []);
 
     const store = mockStore();
 
@@ -197,7 +197,7 @@ describe('Async actions', () => {
   it('should dispatch fetchOffersAction when POST /favorite/0', async () => {
     mockAPI
       .onPost(`${APIRoute.Favorite}/1/0`)
-      .reply(200);
+      .reply(200, []);
 
     const store = mockStore();
 
@@ -211,11 +211,11 @@ describe('Async actions', () => {
   it('should dispatch getFavoriteOffers when POST /favorite/0', async () => {
     mockAPI
       .onPost(`${APIRoute.Favorite}/1/0`)
-      .reply(200);
+      .reply(200, []);
 
     const store = mockStore();
 
-    await store.dispatch(getFavoriteOffers());
+    await store.dispatch(fetchFavoriteOffers());
 
     const actions = store.getActions().map(({type}) => type);
 
@@ -225,7 +225,7 @@ describe('Async actions', () => {
   it('should dispatch fetchCurrentOffer when POST /favorite/0', async () => {
     mockAPI
       .onPost(`${APIRoute.Favorite}/1/0`)
-      .reply(200);
+      .reply(200, []);
 
 
     const store = mockStore();

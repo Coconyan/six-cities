@@ -13,7 +13,7 @@ export type Data = {
   offers: Offers,
   currentOffer: Offer | null,
   currentOffersNearby: Offers | null,
-  currentOffersComments: Comment[] | null,
+  currentOfferComments: Comment[] | null,
   currentSortType: string,
   favoriteOffers: Offers | null,
   isDataLoaded: boolean,

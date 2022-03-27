@@ -48,11 +48,17 @@ function PlaceCard({offer, onListItemHover, placeCardClass = '__place-card', pla
       onMouseLeave={() => {
         onListItemHover && onListItemHover('0');
       }}
+      data-testid='article-item'
     >
       {isPremium && <PremiumMark />}
       <div className={`${placeCardImageClass}__image-wrapper place-card__image-wrapper`}>
         <Link to={`${AppRoute.Room}/${id}`}>
-          <img className="place-card__image" src={previewImage} width={widthImage} height={heightImage} alt={title} />
+          <img
+            className="place-card__image"
+            src={previewImage} width={widthImage}
+            height={heightImage}
+            alt={title}
+          />
         </Link>
       </div>
       <div className={`${isFavoritePage && 'favorites__card-info'} place-card__info`}>
@@ -75,7 +81,9 @@ function PlaceCard({offer, onListItemHover, placeCardClass = '__place-card', pla
           </div>
         </div>
         <h2 className="place-card__name">
-          <a href="#todo">{title}</a>
+          <Link to={`${AppRoute.Room}/${id}`}>
+            {title}
+          </Link>
         </h2>
         <p className="place-card__type">{firstLetterToUpperCase(type)}</p>
       </div>
