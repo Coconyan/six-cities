@@ -128,6 +128,7 @@ export const addOfferToFavorite = createAsyncThunk<void, number, {
     try {
       await api.post<number>(`${APIRoute.Favorite}/${offerId}/${1}`);
       dispatch(fetchOffersAction());
+      dispatch((fetchCurrentOffer(offerId)));
     } catch (error) {
       errorHandle(error);
     }
@@ -178,6 +179,7 @@ export const removeOfferFromFavorite = createAsyncThunk<void, number, {
     try {
       await api.post<number>(`${APIRoute.Favorite}/${offerId}/${0}`);
       dispatch(fetchOffersAction());
+      dispatch((fetchCurrentOffer(offerId)));
     } catch (error) {
       errorHandle(error);
     }
