@@ -3,11 +3,17 @@ import { createMemoryHistory } from 'history';
 import { Provider } from 'react-redux';
 import { configureMockStore } from '@jedmao/redux-mock-store';
 import HistoryRouter from '../history-route/history-route';
-import { AuthorizationStatus, AppRoute } from '../../const';
+import {
+  AuthorizationStatus,
+  AppRoute
+} from '../../const';
 import { cities } from '../../mocks/cities';
 import { makeFakeOffer } from '../../mocks/fake-offer';
 import { makeFakeComment } from '../../mocks/fake-comment';
-import { Route, Routes } from 'react-router-dom';
+import {
+  Route,
+  Routes
+} from 'react-router-dom';
 import PrivateRoute from '../private-route/private-route';
 import SignInPage from '../../pages/sign-in-page/sign-in-page';
 import NotFoundPage from '../../pages/not-found-page/not-found-page';

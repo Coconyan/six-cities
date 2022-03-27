@@ -2,7 +2,10 @@ import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import { useAppDispatch } from '../../hooks';
 import { changeCity } from '../../store/data/data';
-import { City, Offers } from '../../types/offer';
+import {
+  City,
+  Offers
+} from '../../types/offer';
 import PlaceCard from '../place-card/place-card';
 
 type PropsType = {
