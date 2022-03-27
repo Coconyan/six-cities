@@ -6,7 +6,10 @@ import { createMemoryHistory } from 'history';
 import { Provider } from 'react-redux';
 import { configureMockStore } from '@jedmao/redux-mock-store';
 import { makeFakeOffer } from '../../mocks/fake-offer';
-import { AppRoute, AuthorizationStatus } from '../../const';
+import {
+  AppRoute,
+  AuthorizationStatus
+} from '../../const';
 import HistoryRouter from '../../components/history-route/history-route';
 import { cities } from '../../mocks/cities';
 

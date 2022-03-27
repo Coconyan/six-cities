@@ -27,12 +27,12 @@ function PlaceCard({offer, onListItemHover, placeCardClass = '__place-card', pla
   const favoriteClassName = `place-card__bookmark-button${isFavorite ? isFavorite && '--active button' : ' button'}`;
   const dispatch = useAppDispatch();
 
-  const listItemHoverHandler = (event: MouseEvent<HTMLLIElement>) => {
+  const handleListItemHover = (event: MouseEvent<HTMLLIElement>) => {
     event.preventDefault();
     onListItemHover && onListItemHover(event.currentTarget.id);
   };
 
-  const onFavoriteClickHandler = () => {
+  const onFavoriteClick = () => {
     if (isFavoritePage) {
       isFavorite ? dispatch(removeOfferFromFavoritePage(id)) : dispatch(addOfferToFavoritePage(id));
     } else {
@@ -44,7 +44,7 @@ function PlaceCard({offer, onListItemHover, placeCardClass = '__place-card', pla
     <article
       className={`${placeCardImageClass + placeCardClass} place-card`}
       id={String(id)}
-      onMouseEnter={listItemHoverHandler}
+      onMouseEnter={handleListItemHover}
       onMouseLeave={() => {
         onListItemHover && onListItemHover('0');
       }}
@@ -67,7 +67,7 @@ function PlaceCard({offer, onListItemHover, placeCardClass = '__place-card', pla
             <b className="place-card__price-value">{`€${price}`}</b>
             <span className="place-card__price-text">/&nbsp;night</span>
           </div>
-          <button key={`${id  }favorite-button`} className={favoriteClassName} type="button" onClick={onFavoriteClickHandler}>
+          <button className={favoriteClassName} type="button" onClick={onFavoriteClick}>
             <svg className="place-card__bookmark-icon" width={18} height={19}>
               <use xlinkHref="#icon-bookmark" />
             </svg>

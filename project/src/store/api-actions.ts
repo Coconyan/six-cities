@@ -22,7 +22,10 @@ import {
   Offer,
   Offers
 } from '../types/offer';
-import { AppDispatch, State } from '../types/state';
+import {
+  AppDispatch,
+  State
+} from '../types/state';
 import { UserData } from '../types/user-data';
 import { redirectToRoute } from './actions';
 import {
@@ -83,12 +86,12 @@ export const fetchCurrentOffersNearby = createAsyncThunk<void, number, {
   },
 );
 
-export const fetchcurrentOfferComments = createAsyncThunk<void, number, {
+export const fetchCurrentOfferComments = createAsyncThunk<void, number, {
   dispatch: AppDispatch,
   state: State,
   extra: AxiosInstance
 }>(
-  'data/fetchcurrentOfferComments',
+  'data/fetchCurrentOfferComments',
   async (id: number, {dispatch, extra: api}) => {
     try {
       const {data} = await api.get<Comment[]>(`${APIRoute.Comments}/${id}`);
@@ -136,11 +139,12 @@ export const addOfferToFavoritePage = createAsyncThunk<void, number, {
   state: State,
   extra: AxiosInstance
 }>(
-  'data/addOfferToFavorite',
+  'data/addOfferToFavoritePage',
   async (offerId: number, {dispatch, extra: api}) => {
     try {
       await api.post<number>(`${APIRoute.Favorite}/${offerId}/${1}`);
       dispatch(fetchFavoriteOffers());
+      dispatch(fetchOffersAction());
     } catch (error) {
       errorHandle(error);
     }
@@ -152,11 +156,12 @@ export const addOfferToFavoriteOfferPage = createAsyncThunk<void, number, {
   state: State,
   extra: AxiosInstance
 }>(
-  'data/addOfferToFavorite',
+  'data/addOfferToFavoriteOfferPage',
   async (offerId: number, {dispatch, extra: api}) => {
     try {
       await api.post<number>(`${APIRoute.Favorite}/${offerId}/${1}`);
       dispatch((fetchCurrentOffer(offerId)));
+      dispatch(fetchOffersAction());
     } catch (error) {
       errorHandle(error);
     }
@@ -184,11 +189,12 @@ export const removeOfferFromFavoritePage = createAsyncThunk<void, number, {
   state: State,
   extra: AxiosInstance
 }>(
-  'data/removeOfferFromFavorite',
+  'data/removeOfferFromFavoritePage',
   async (offerId: number, {dispatch, extra: api}) => {
     try {
       await api.post<number>(`${APIRoute.Favorite}/${offerId}/${0}`);
       dispatch(fetchFavoriteOffers());
+      dispatch(fetchOffersAction());
     } catch (error) {
       errorHandle(error);
     }
@@ -200,11 +206,12 @@ export const removeOfferFromFavoriteOfferPage = createAsyncThunk<void, number, {
   state: State,
   extra: AxiosInstance
 }>(
-  'data/removeOfferFromFavorite',
+  'data/removeOfferFromFavoriteOfferPage',
   async (offerId: number, {dispatch, extra: api}) => {
     try {
       await api.post<number>(`${APIRoute.Favorite}/${offerId}/${0}`);
       dispatch((fetchCurrentOffer(offerId)));
+      dispatch(fetchOffersAction());
     } catch (error) {
       errorHandle(error);
     }
@@ -278,6 +285,7 @@ export const logoutAction = createAsyncThunk<void, undefined, {
       dropToken();
       dropEmail();
       dispatch(requireAuthorization(AuthorizationStatus.NoAuth));
+      dispatch(fetchOffersAction());
     } catch (error) {
       errorHandle(error);
     }

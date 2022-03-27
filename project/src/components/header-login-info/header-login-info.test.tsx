@@ -6,7 +6,10 @@ import { createMemoryHistory } from 'history';
 import { Provider } from 'react-redux';
 import { configureMockStore } from '@jedmao/redux-mock-store';
 import HistoryRouter from '../history-route/history-route';
-import { AppRoute, AuthorizationStatus } from '../../const';
+import {
+  AppRoute,
+  AuthorizationStatus
+} from '../../const';
 import userEvent from '@testing-library/user-event';
 import {
   Route,

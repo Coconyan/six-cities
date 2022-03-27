@@ -4,7 +4,10 @@ import { SpinnerCircular } from 'spinners-react';
 import FavoritesList from '../../components/favorites-list/favorites-list';
 import HeaderLoginInfo from '../../components/header-login-info/header-login-info';
 import Logo from '../../components/logo/logo';
-import { AppRoute, SPINNER_COLOR } from '../../const';
+import {
+  AppRoute,
+  SPINNER_COLOR
+} from '../../const';
 import {
   useAppDispatch,
   useAppSelector

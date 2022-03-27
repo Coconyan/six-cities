@@ -17,7 +17,7 @@ import {
 import {
   addOfferToFavoriteOfferPage,
   fetchCurrentOffer,
-  fetchcurrentOfferComments,
+  fetchCurrentOfferComments,
   fetchCurrentOffersNearby,
   removeOfferFromFavoriteOfferPage
 } from '../../store/api-actions';
@@ -39,7 +39,7 @@ function RoomPage(): JSX.Element {
     if (offer === null || offer.id !== Number(id)) {
       dispatch(fetchCurrentOffer(Number(id)));
       dispatch(fetchCurrentOffersNearby(Number(id)));
-      dispatch(fetchcurrentOfferComments(Number(id)));
+      dispatch(fetchCurrentOfferComments(Number(id)));
     }
   }, [dispatch, id, offer, currentOffersNearby, currentOfferComments]);
 
@@ -51,7 +51,7 @@ function RoomPage(): JSX.Element {
   const {name, isPro, avatarUrl} = host;
   const favoriteClassName = `property__bookmark-button${isFavorite ? isFavorite && ' property__bookmark-button--active button' : ' button'}`;
 
-  const onFavoriteClickHandler = () => {
+  const onFavoriteClick = () => {
     isFavorite ? dispatch(removeOfferFromFavoriteOfferPage(offerId)) : dispatch(addOfferToFavoriteOfferPage(offerId));
   };
 
@@ -87,7 +87,7 @@ function RoomPage(): JSX.Element {
                 <h1 className="property__name">
                   {title}
                 </h1>
-                <button className={favoriteClassName} type="button" onClick={onFavoriteClickHandler}>
+                <button className={favoriteClassName} type="button" onClick={onFavoriteClick}>
                   <svg className="property__bookmark-icon" width={31} height={33}>
                     <use xlinkHref="#icon-bookmark" />
                   </svg>
