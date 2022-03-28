@@ -2,14 +2,13 @@ import { AuthorizationStatus } from '../const.js';
 import { store } from '../store/index.js';
 import { Comment } from './comments.js';
 import {
-  City,
   Offer,
   Offers
 } from './offer.js';
 
 export type Data = {
-  cities: City[],
-  currentCity: City,
+  cities: string[],
+  currentCity: string,
   offers: Offers,
   currentOffer: Offer | null,
   currentOffersNearby: Offers | null,

@@ -18,7 +18,7 @@ function ListCards({offers, onListItemHover, placeCardClass, placeCardImageClass
   return (
     <>
       {offers.map((offer) => (
-        offer.city.name === currentCity.name
+        offer.city.name === currentCity
           ? <PlaceCard key={offer.id} offer={offer} onListItemHover={onListItemHover} placeCardClass={placeCardClass} placeCardImageClass={placeCardImageClass} isFavoritePage={isFavoritePage} widthImage={widthImage} heightImage={heightImage} />
           : ''
       ))}

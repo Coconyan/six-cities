@@ -4,7 +4,7 @@ import {
   datatype
 } from 'faker';
 import { Offer } from '../types/offer';
-import { cities } from './cities';
+import { cities } from './fake-cities';
 
 export const makeFakeOffer = (city = cities[0]): Offer => ({
   city: city,

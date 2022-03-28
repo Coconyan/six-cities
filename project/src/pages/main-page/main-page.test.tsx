@@ -9,9 +9,10 @@ import HistoryRouter from '../../components/history-router/history-router';
 import {
   AppRoute,
   AuthorizationStatus,
+  CITIES,
   SortTypes
 } from '../../const';
-import { cities } from '../../mocks/cities';
+import { cities } from '../../mocks/fake-cities';
 import { makeFakeOffer } from '../../mocks/fake-offer';
 import { sortPriceToHigh } from '../../utils';
 import MainPage from './main-page';
@@ -26,10 +27,10 @@ describe('Component: MainPage', () => {
     const store = mockStore({
       USER: { authorizationStatus: AuthorizationStatus.Auth },
       DATA: {
-        cities: cities,
+        cities: CITIES,
         isDataLoaded: true,
         offers: [],
-        currentCity: cities[0],
+        currentCity: cities[0].name,
       },
     });
 
@@ -47,7 +48,7 @@ describe('Component: MainPage', () => {
 
   it('should switch current offers if sort type is changed', () => {
     history.push(AppRoute.Root);
-    const currentCity = cities[0];
+    const currentCity = cities[0].name;
     const offers = [makeFakeOffer(), makeFakeOffer(), makeFakeOffer(), makeFakeOffer(), makeFakeOffer()];
     let currentCityOffers = offers.slice();
     let currentSortType = SortTypes.Popular;
@@ -58,16 +59,16 @@ describe('Component: MainPage', () => {
         currentCityOffers.sort(sortPriceToHigh);
         break;
       default:
-        currentCityOffers = offers.filter((offer) => offer.city.name === currentCity.name);
+        currentCityOffers = offers.filter((offer) => offer.city.name === currentCity);
     }
     expect(offers === currentCityOffers).toBeFalsy();
   });
 
   it('should filter current offers by current city', () => {
     history.push(AppRoute.Root);
-    const currentCity = cities[0];
+    const currentCity = cities[0].name;
     const offers = [makeFakeOffer(cities[1]), makeFakeOffer(cities[0]), makeFakeOffer(cities[4]), makeFakeOffer(cities[0]), makeFakeOffer(cities[1])];
-    const currentCityOffers = offers.filter((offer) => offer.city.name === currentCity.name);
+    const currentCityOffers = offers.filter((offer) => offer.city.name === currentCity);
 
     expect(currentCityOffers.length).toBe(2);
   });

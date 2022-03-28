@@ -25,7 +25,7 @@ function NotFoundPage(): JSX.Element {
           <section className="locations locations--login locations--current">
             <div className="locations__item">
               <a className="locations__item-link" href="/">
-                <span>{currentCity.name}</span>
+                <span>{currentCity}</span>
               </a>
             </div>
           </section>

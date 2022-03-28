@@ -33,7 +33,7 @@ function MainPage(): JSX.Element {
   const offers = useAppSelector(getOffers);
   const currentSortType = useAppSelector(getCurrentSortType);
   const isDataLoaded = useAppSelector(getLoadedDataStatus);
-  let currentCityOffers = offers.filter((offer) => offer.city.name === currentCity.name);
+  let currentCityOffers = offers.filter((offer) => offer.city.name === currentCity);
 
   const [activeCard, setActiveCard] = useState<Offer | undefined>(
     undefined,
@@ -57,10 +57,10 @@ function MainPage(): JSX.Element {
       currentCityOffers.sort(sortRatingToHigh);
       break;
     case SortTypes.Popular:
-      currentCityOffers = offers.filter((offer) => offer.city.name === currentCity.name);
+      currentCityOffers = offers.filter((offer) => offer.city.name === currentCity);
       break;
     default:
-      currentCityOffers = offers.filter((offer) => offer.city.name === currentCity.name);
+      currentCityOffers = offers.filter((offer) => offer.city.name === currentCity);
   }
 
   return (
@@ -86,7 +86,7 @@ function MainPage(): JSX.Element {
               <div className="cities__places-container container">
                 <section className="cities__places places">
                   <h2 className="visually-hidden">Places</h2>
-                  <b className="places__found">{isDataLoaded ? `${currentCityOffers.length} places to stay in ${currentCity.name}` : 'Loading...'}</b>
+                  <b className="places__found">{isDataLoaded ? `${currentCityOffers.length} places to stay in ${currentCity}` : 'Loading...'}</b>
                   <form className="places__sorting" action="#" method="get">
                     <span className="places__sorting-caption">Sort by</span>
                     <Sort />
@@ -99,8 +99,8 @@ function MainPage(): JSX.Element {
                   <section className="cities__map map" >
                     {
                       <Map
-                        key={JSON.stringify(currentCity.location.longitude + currentCity.location.latitude)}
-                        city={currentCity}
+                        key={JSON.stringify(currentCityOffers[0].location.longitude + currentCityOffers[0].location.latitude)}
+                        city={currentCityOffers[0].city}
                         offers={currentCityOffers}
                         activeCard={activeCard}
                       />

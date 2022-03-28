@@ -11,7 +11,7 @@ import {
   AuthorizationStatus
 } from '../../const';
 import HistoryRouter from '../../components/history-router/history-router';
-import { cities } from '../../mocks/cities';
+import { cities } from '../../mocks/fake-cities';
 
 const mockStore = configureMockStore();
 

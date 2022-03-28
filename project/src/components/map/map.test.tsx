@@ -4,7 +4,7 @@ import {
 } from '@testing-library/react';
 import { createMemoryHistory } from 'history';
 import { AppRoute } from '../../const';
-import { cities } from '../../mocks/cities';
+import { cities } from '../../mocks/fake-cities';
 import { makeFakeOffer } from '../../mocks/fake-offer';
 import HistoryRouter from '../history-router/history-router';
 import Map from './map';

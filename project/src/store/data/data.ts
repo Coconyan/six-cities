@@ -1,14 +1,14 @@
 import { createSlice } from '@reduxjs/toolkit';
 import {
+  CITIES,
   NameSpace,
   SortTypes
 } from '../../const';
-import { cities } from '../../mocks/cities';
 import { Data } from '../../types/state';
 
 const initialState: Data = {
-  cities,
-  currentCity: cities[0],
+  cities: CITIES,
+  currentCity: CITIES[0],
   offers: [],
   currentOffer: null,
   currentOffersNearby: null,

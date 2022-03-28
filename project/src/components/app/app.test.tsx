@@ -5,9 +5,10 @@ import { configureMockStore } from '@jedmao/redux-mock-store';
 import HistoryRouter from '../history-router/history-router';
 import {
   AuthorizationStatus,
-  AppRoute
+  AppRoute,
+  CITIES
 } from '../../const';
-import { cities } from '../../mocks/cities';
+import { cities } from '../../mocks/fake-cities';
 import { makeFakeOffer } from '../../mocks/fake-offer';
 import { makeFakeComment } from '../../mocks/fake-comment';
 import {
@@ -21,12 +22,12 @@ import NotFoundPage from '../../pages/not-found-page/not-found-page';
 const mockStore = configureMockStore();
 
 const store = mockStore({
-  USER: { authorizationStatus: AuthorizationStatus.Auth },
+  USER: {authorizationStatus: AuthorizationStatus.Auth},
   DATA: {
-    cities: cities,
+    cities: CITIES,
     isDataLoaded: true,
     offers: [makeFakeOffer(), makeFakeOffer(), makeFakeOffer()],
-    currentCity: cities[0],
+    currentCity: cities[0].name,
     currentOffer: makeFakeOffer(),
     currentOffersNearby: [makeFakeOffer(), makeFakeOffer(), makeFakeOffer()],
     currentOfferComments: [makeFakeComment(), makeFakeComment()],
@@ -102,9 +103,6 @@ describe('Application Routing', () => {
     render(fakeApp);
 
     expect(screen.getByText(/Mock Room Page/i)).toBeInTheDocument();
-    // expect(screen.getByText(/What&apos;s inside/i)).toBeInTheDocument();
-    // expect(screen.getByText(/Meet the host/i)).toBeInTheDocument();
-    // expect(screen.getByText(/Other places in the neighbourhood/i)).toBeInTheDocument();
   });
 
   it('should render "NotFoundPage" when user navigate to non-existent route', () => {

@@ -12,8 +12,8 @@ function FavoritesList({favoriteOffers}: PropsType): JSX.Element {
   return (
     <ul className="favorites__list" data-testid="favorites-list">
       {cities.map((city) => (
-        favoriteOffers.find((offer) => offer.city.name === city.name)
-          ? <FavoritesListItem key={city.name} favoriteOffers={favoriteOffers.filter((offer) => offer.city.name === city.name)} city={city} />
+        favoriteOffers.find((offer) => offer.city.name === city)
+          ? <FavoritesListItem key={city} favoriteOffers={favoriteOffers.filter((offer) => offer.city.name === city)} city={city} />
           : ''
       ))}
     </ul>

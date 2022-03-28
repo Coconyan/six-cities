@@ -6,8 +6,12 @@ import { createMemoryHistory } from 'history';
 import { Provider } from 'react-redux';
 import { configureMockStore } from '@jedmao/redux-mock-store';
 import HistoryRouter from '../history-router/history-router';
-import { AppRoute } from '../../const';
-import { cities } from '../../mocks/cities';
+import {
+  AppRoute,
+  AuthorizationStatus,
+  CITIES
+} from '../../const';
+import { cities } from '../../mocks/fake-cities';
 import userEvent from '@testing-library/user-event';
 import {
   Route,
@@ -19,8 +23,9 @@ import FavoritesListItem from './favorites-list-item';
 const mockStore = configureMockStore();
 
 const store = mockStore({
+  USER: {authorizationStatus: AuthorizationStatus.Auth},
   DATA: {
-    cities: cities,
+    cities: CITIES,
   },
 });
 
@@ -34,7 +39,7 @@ describe('Component: FavoritesListItem', () => {
     render(
       <Provider store={store}>
         <HistoryRouter history={history}>
-          <FavoritesListItem favoriteOffers={[makeFakeOffer(), makeFakeOffer(), makeFakeOffer()]} city={cities[0]} />
+          <FavoritesListItem favoriteOffers={[makeFakeOffer(), makeFakeOffer(), makeFakeOffer()]} city={cities[0].name} />
         </HistoryRouter>
       </Provider>);
 
@@ -49,7 +54,7 @@ describe('Component: FavoritesListItem', () => {
           <Routes>
             <Route
               path={AppRoute.Favorites}
-              element={<FavoritesListItem favoriteOffers={[makeFakeOffer(), makeFakeOffer(), makeFakeOffer()]} city={cities[0]} />}
+              element={<FavoritesListItem favoriteOffers={[makeFakeOffer(), makeFakeOffer(), makeFakeOffer()]} city={cities[0].name} />}
             />
             <Route
               path={AppRoute.Root}

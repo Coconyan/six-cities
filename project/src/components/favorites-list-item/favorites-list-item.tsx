@@ -3,20 +3,19 @@ import { AppRoute } from '../../const';
 import { useAppDispatch } from '../../hooks';
 import { changeCity } from '../../store/data/data';
 import {
-  City,
   Offers
 } from '../../types/offer';
 import PlaceCard from '../place-card/place-card';
 
 type PropsType = {
   favoriteOffers: Offers;
-  city: City;
+  city: string;
 }
 
 function FavoritesListItem({favoriteOffers, city}: PropsType): JSX.Element {
   const dispatch = useAppDispatch();
   return (
-    <li key={favoriteOffers[0].id + city.name} className="favorites__locations-items">
+    <li key={favoriteOffers[0].id + city} className="favorites__locations-items">
       <div className="favorites__locations locations locations--current">
         <div className="locations__item">
           <Link
@@ -24,7 +23,7 @@ function FavoritesListItem({favoriteOffers, city}: PropsType): JSX.Element {
             to={AppRoute.Root}
             onClick={() => {dispatch(changeCity(city));}}
           >
-            <span>{city.name}</span>
+            <span>{city}</span>
           </Link>
         </div>
       </div>

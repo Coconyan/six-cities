@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import {
+  useNavigate,
   useParams
 } from 'react-router-dom';
 import { SpinnerCircular } from 'spinners-react';
@@ -9,7 +10,7 @@ import Logo from '../../components/logo/logo';
 import Map from '../../components/map/map';
 import PremiumMark from '../../components/premium-mark/premium-mark';
 import RoomReviewsList from '../../components/room-reviews-list/room-reviews-list';
-import { SPINNER_COLOR } from '../../const';
+import { AppRoute, AuthorizationStatus, SPINNER_COLOR } from '../../const';
 import {
   useAppDispatch,
   useAppSelector
@@ -26,12 +27,15 @@ import {
   getCurrentOfferComments,
   getCurrentOffersNearby
 } from '../../store/data/selectors';
+import { getAuthorizationStatus } from '../../store/user-process/selectors';
 import firstLetterToUpperCase from '../../utils';
 
 function RoomPage(): JSX.Element {
   const offer = useAppSelector(getCurrentOffer);
   const currentOffersNearby = useAppSelector(getCurrentOffersNearby);
   const currentOfferComments = useAppSelector(getCurrentOfferComments);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const {id} = useParams();
 
@@ -52,7 +56,11 @@ function RoomPage(): JSX.Element {
   const favoriteClassName = `property__bookmark-button${isFavorite ? isFavorite && ' property__bookmark-button--active button' : ' button'}`;
 
   const onFavoriteClick = () => {
-    isFavorite ? dispatch(removeOfferFromFavoriteOfferPage(offerId)) : dispatch(addOfferToFavoriteOfferPage(offerId));
+    if (authorizationStatus === AuthorizationStatus.Auth) {
+      isFavorite ? dispatch(removeOfferFromFavoriteOfferPage(offerId)) : dispatch(addOfferToFavoriteOfferPage(offerId));
+    } else {
+      navigate(AppRoute.SignIn, {replace: true});
+    }
   };
 
   return (
@@ -151,7 +159,7 @@ function RoomPage(): JSX.Element {
           <section className="property__map map">
             {
               <Map
-                key={offer.id}
+                key={`${id}-offer`}
                 city={city}
                 offers={currentOffersNearby !== null ? currentOffersNearby.slice(0, 3).concat(offer) : [offer]}
                 height={'580px'}

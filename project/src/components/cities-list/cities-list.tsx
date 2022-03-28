@@ -24,16 +24,16 @@ function CitiesList(): JSX.Element {
           <ul className="locations__list tabs__list">
             {cities.map((city) => (
               <li
-                key={city.name}
+                key={city}
                 className="locations__item"
-                id={city.name}
+                id={city}
                 onClick={() => {dispatch(changeCity(city));}}
               >
                 <Link
                   to={AppRoute.Root}
-                  className={`locations__item-link tabs__item ${city.name === currentCity.name ? 'tabs__item--active' : ''}`}
+                  className={`locations__item-link tabs__item ${city === currentCity ? 'tabs__item--active' : ''}`}
                 >
-                  <span>{city.name}</span>
+                  <span>{city}</span>
                 </Link>
               </li>
             ))}

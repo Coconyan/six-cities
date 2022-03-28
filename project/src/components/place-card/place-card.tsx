@@ -1,13 +1,17 @@
 import { MouseEvent } from 'react';
-import { Link } from 'react-router-dom';
-import { AppRoute } from '../../const';
-import { useAppDispatch } from '../../hooks';
+import {
+  Link,
+  useNavigate
+} from 'react-router-dom';
+import { AppRoute, AuthorizationStatus } from '../../const';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import {
   addOfferToFavorite,
   addOfferToFavoritePage,
   removeOfferFromFavorite,
   removeOfferFromFavoritePage
 } from '../../store/api-actions';
+import { getAuthorizationStatus } from '../../store/user-process/selectors';
 import { Offer } from '../../types/offer';
 import firstLetterToUpperCase from '../../utils';
 import PremiumMark from '../premium-mark/premium-mark';
@@ -25,6 +29,8 @@ type PropsType = {
 function PlaceCard({offer, onListItemHover, placeCardClass = '__place-card', placeCardImageClass = 'cities', isFavoritePage = false, widthImage = 260, heightImage = 200}: PropsType): JSX.Element {
   const {previewImage, rating, price, title, type, isPremium, isFavorite, id} = offer;
   const favoriteClassName = `place-card__bookmark-button${isFavorite ? isFavorite && '--active button' : ' button'}`;
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
   const handleListItemHover = (event: MouseEvent<HTMLLIElement>) => {
@@ -33,10 +39,14 @@ function PlaceCard({offer, onListItemHover, placeCardClass = '__place-card', pla
   };
 
   const onFavoriteClick = () => {
-    if (isFavoritePage) {
-      isFavorite ? dispatch(removeOfferFromFavoritePage(id)) : dispatch(addOfferToFavoritePage(id));
+    if (authorizationStatus === AuthorizationStatus.Auth) {
+      if (isFavoritePage) {
+        isFavorite ? dispatch(removeOfferFromFavoritePage(id)) : dispatch(addOfferToFavoritePage(id));
+      } else {
+        isFavorite ? dispatch(removeOfferFromFavorite(id)) : dispatch(addOfferToFavorite(id));
+      }
     } else {
-      isFavorite ? dispatch(removeOfferFromFavorite(id)) : dispatch(addOfferToFavorite(id));
+      navigate(AppRoute.SignIn, {replace: true});
     }
   };
 

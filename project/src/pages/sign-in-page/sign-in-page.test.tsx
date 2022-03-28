@@ -8,7 +8,7 @@ import { Provider } from 'react-redux';
 import userEvent from '@testing-library/user-event';
 import HistoryRouter from '../../components/history-router/history-router';
 import SignInPage from './sign-in-page';
-import { cities } from '../../mocks/cities';
+import { cities } from '../../mocks/fake-cities';
 
 const mockStore = configureMockStore();
 
@@ -17,7 +17,7 @@ describe('Component: SignInPage', () => {
     const history = createMemoryHistory();
     const store = mockStore({
       DATA: {
-        currentCity: cities[0],
+        currentCity: cities[0].name,
       },
     });
     history.push('/login');

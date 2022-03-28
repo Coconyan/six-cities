@@ -88,7 +88,7 @@ function SignInPage(): JSX.Element {
           <section className="locations locations--login locations--current">
             <div className="locations__item">
               <Link className="locations__item-link" to={AppRoute.Root}>
-                <span>{currentCity.name}</span>
+                <span>{currentCity}</span>
               </Link>
             </div>
           </section>

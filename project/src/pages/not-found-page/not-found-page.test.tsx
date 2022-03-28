@@ -6,13 +6,13 @@ import {
 import { createMemoryHistory } from 'history';
 import { Provider } from 'react-redux';
 import HistoryRouter from '../../components/history-router/history-router';
-import { cities } from '../../mocks/cities';
+import { cities } from '../../mocks/fake-cities';
 import NotFoundPage from './not-found-page';
 
 const mockStore = configureMockStore();
 
 const store = mockStore({
-  DATA: { currentCity: cities[0] },
+  DATA: { currentCity: cities[0].name },
 });
 
 describe('Component: NotFoundPage', () => {

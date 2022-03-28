@@ -14,6 +14,8 @@ export enum AuthorizationStatus {
   Unknown = 'UNKNOWN',
 }
 
+export const CITIES: string[] = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'];
+
 export const ICON_SIZE: PointExpression = [40, 40];
 
 export const ICON_ANCHOR: PointExpression = [20, 40];

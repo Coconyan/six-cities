@@ -6,8 +6,11 @@ import { createMemoryHistory } from 'history';
 import { Provider } from 'react-redux';
 import { configureMockStore } from '@jedmao/redux-mock-store';
 import HistoryRouter from '../history-router/history-router';
-import { AppRoute } from '../../const';
-import { cities } from '../../mocks/cities';
+import {
+  AppRoute,
+  AuthorizationStatus,
+  CITIES
+} from '../../const';
 import userEvent from '@testing-library/user-event';
 import {
   Route,
@@ -19,8 +22,9 @@ import { makeFakeOffer } from '../../mocks/fake-offer';
 const mockStore = configureMockStore();
 
 const store = mockStore({
+  USER: {authorizationStatus: AuthorizationStatus.Auth},
   DATA: {
-    cities: cities,
+    cities: CITIES,
   },
 });
 
