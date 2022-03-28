@@ -7,7 +7,7 @@ import { createMemoryHistory } from 'history';
 import { Provider } from 'react-redux';
 import { AppRoute } from '../../const';
 import { cities } from '../../mocks/cities';
-import HistoryRouter from '../history-route/history-route';
+import HistoryRouter from '../history-router/history-router';
 import MainEmpty from './main-empty';
 
 const mockStore = configureMockStore();

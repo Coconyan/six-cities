@@ -1,3 +1,5 @@
+import { PointExpression } from 'leaflet';
+
 export enum AppRoute {
   SignIn = '/login',
   Favorites = '/favorites',
@@ -11,6 +13,10 @@ export enum AuthorizationStatus {
   NoAuth = 'NO_AUTH',
   Unknown = 'UNKNOWN',
 }
+
+export const ICON_SIZE: PointExpression = [40, 40];
+
+export const ICON_ANCHOR: PointExpression = [20, 40];
 
 export const URL_MARKER_DEFAULT =
   'img/pin.svg';

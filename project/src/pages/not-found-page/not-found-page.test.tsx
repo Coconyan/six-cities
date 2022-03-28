@@ -5,7 +5,7 @@ import {
 } from '@testing-library/react';
 import { createMemoryHistory } from 'history';
 import { Provider } from 'react-redux';
-import HistoryRouter from '../../components/history-route/history-route';
+import HistoryRouter from '../../components/history-router/history-router';
 import { cities } from '../../mocks/cities';
 import NotFoundPage from './not-found-page';
 

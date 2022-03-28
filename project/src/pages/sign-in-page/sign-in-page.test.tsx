@@ -6,7 +6,7 @@ import { createMemoryHistory } from 'history';
 import { configureMockStore } from '@jedmao/redux-mock-store';
 import { Provider } from 'react-redux';
 import userEvent from '@testing-library/user-event';
-import HistoryRouter from '../../components/history-route/history-route';
+import HistoryRouter from '../../components/history-router/history-router';
 import SignInPage from './sign-in-page';
 import { cities } from '../../mocks/cities';
 

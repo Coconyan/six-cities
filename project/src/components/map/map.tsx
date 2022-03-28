@@ -12,7 +12,9 @@ import {
 } from '../../types/offer';
 import {
   URL_MARKER_DEFAULT,
-  URL_MARKER_CURRENT
+  URL_MARKER_CURRENT,
+  ICON_SIZE,
+  ICON_ANCHOR
 } from '../../const';
 import useMap from '../../hooks/useMap';
 import 'leaflet/dist/leaflet.css';
@@ -26,14 +28,14 @@ type MapProps = {
 
 const defaultCustomIcon = new Icon({
   iconUrl: URL_MARKER_DEFAULT,
-  iconSize: [40, 40],
-  iconAnchor: [20, 40],
+  iconSize: ICON_SIZE,
+  iconAnchor: ICON_ANCHOR,
 });
 
 const currentCustomIcon = new Icon({
   iconUrl: URL_MARKER_CURRENT,
-  iconSize: [40, 40],
-  iconAnchor: [20, 40],
+  iconSize: ICON_SIZE,
+  iconAnchor: ICON_ANCHOR,
 });
 
 function Map(props: MapProps): JSX.Element {

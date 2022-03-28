@@ -10,7 +10,7 @@ import {
   AppRoute,
   AuthorizationStatus
 } from '../../const';
-import HistoryRouter from '../../components/history-route/history-route';
+import HistoryRouter from '../../components/history-router/history-router';
 import { cities } from '../../mocks/cities';
 
 const mockStore = configureMockStore();

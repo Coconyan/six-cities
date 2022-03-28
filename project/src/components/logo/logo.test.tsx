@@ -7,7 +7,7 @@ import {
   Route
 } from 'react-router-dom';
 import { createMemoryHistory } from 'history';
-import HistoryRouter from '../history-route/history-route';
+import HistoryRouter from '../history-router/history-router';
 import userEvent from '@testing-library/user-event';
 import Logo from './logo';
 
