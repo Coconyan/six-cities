@@ -1,4 +1,3 @@
-import { MouseEvent } from 'react';
 import {
   Link,
   useNavigate
@@ -11,6 +10,7 @@ import {
   removeOfferFromFavorite,
   removeOfferFromFavoritePage
 } from '../../store/api-actions';
+import { loadCurrentMapOffer } from '../../store/data/data';
 import { getAuthorizationStatus } from '../../store/user-process/selectors';
 import { Offer } from '../../types/offer';
 import firstLetterToUpperCase from '../../utils';
@@ -18,25 +18,20 @@ import PremiumMark from '../premium-mark/premium-mark';
 
 type PropsType = {
   offer: Offer;
-  onListItemHover?: (listItemName: string) => void;
   placeCardClass?: string;
   placeCardImageClass?: string;
   isFavoritePage?: boolean;
   widthImage?: number;
   heightImage?: number;
+  isMainPage?: boolean;
 }
 
-function PlaceCard({offer, onListItemHover, placeCardClass = '__place-card', placeCardImageClass = 'cities', isFavoritePage = false, widthImage = 260, heightImage = 200}: PropsType): JSX.Element {
+function PlaceCard({offer, placeCardClass = '__place-card', placeCardImageClass = 'cities', isFavoritePage = false, isMainPage = false, widthImage = 260, heightImage = 200}: PropsType): JSX.Element {
   const {previewImage, rating, price, title, type, isPremium, isFavorite, id} = offer;
   const favoriteClassName = `place-card__bookmark-button${isFavorite ? isFavorite && '--active button' : ' button'}`;
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-
-  const handleListItemHover = (event: MouseEvent<HTMLLIElement>) => {
-    event.preventDefault();
-    onListItemHover && onListItemHover(event.currentTarget.id);
-  };
 
   const onFavoriteClick = () => {
     if (authorizationStatus === AuthorizationStatus.Auth) {
@@ -54,9 +49,11 @@ function PlaceCard({offer, onListItemHover, placeCardClass = '__place-card', pla
     <article
       className={`${placeCardImageClass + placeCardClass} place-card`}
       id={String(id)}
-      onMouseEnter={handleListItemHover}
+      onMouseEnter={() => {
+        isMainPage && dispatch(loadCurrentMapOffer(offer));
+      }}
       onMouseLeave={() => {
-        onListItemHover && onListItemHover('0');
+        isMainPage && dispatch(loadCurrentMapOffer(null));
       }}
       data-testid='article-item'
     >

@@ -1,14 +1,13 @@
-import {
-  useCallback,
-  useState
-} from 'react';
+// import {
+//   useState
+// } from 'react';
 import CitiesList from '../../components/cities-list/cities-list';
 import ListCards from '../../components/list-cards/list-cards';
 import Logo from '../../components/logo/logo';
 import Map from '../../components/map/map';
 import Sort from '../../components/sort/sort';
 import { useAppSelector } from '../../hooks';
-import { Offer } from '../../types/offer';
+// import { Offer } from '../../types/offer';
 import {
   SortTypes,
   SPINNER_COLOR
@@ -34,17 +33,6 @@ function MainPage(): JSX.Element {
   const currentSortType = useAppSelector(getCurrentSortType);
   const isDataLoaded = useAppSelector(getLoadedDataStatus);
   let currentCityOffers = offers.filter((offer) => offer.city.name === currentCity);
-
-  const [activeCard, setActiveCard] = useState<Offer | undefined>(
-    undefined,
-  );
-
-  const onListItemHover = useCallback((id: string) => {
-    const currentOffer = currentCityOffers.find((offer) => String(offer.id) === id);
-    setActiveCard(currentOffer);
-  },
-  [currentCityOffers],
-  );
 
   switch (currentSortType) {
     case SortTypes.PriceLowToHigh:
@@ -92,7 +80,7 @@ function MainPage(): JSX.Element {
                     <Sort />
                   </form>
                   <div className="cities__places-list places__list tabs__content">
-                    {isDataLoaded ? <ListCards offers={currentCityOffers} onListItemHover={onListItemHover} /> : <SpinnerCircular color={SPINNER_COLOR} />}
+                    {isDataLoaded ? <ListCards offers={currentCityOffers} isMainPage /> : <SpinnerCircular color={SPINNER_COLOR} />}
                   </div>
                 </section>
                 <div className="cities__right-section">
@@ -102,7 +90,6 @@ function MainPage(): JSX.Element {
                         key={JSON.stringify(currentCityOffers[0].location.longitude + currentCityOffers[0].location.latitude)}
                         city={currentCityOffers[0].city}
                         offers={currentCityOffers}
-                        activeCard={activeCard}
                       />
                     }
                   </section>

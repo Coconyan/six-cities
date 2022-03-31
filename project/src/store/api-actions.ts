@@ -63,6 +63,10 @@ export const fetchCurrentOffer = createAsyncThunk<void, number, {
     try {
       const {data} = await api.get<Offer>(`${APIRoute.Offers}/${id}`);
       dispatch(loadCurrentOffer(data));
+      const {data: dataNearby} = await api.get<Offers>(`${APIRoute.Offers}/${id}/nearby`);
+      dispatch(loadCurrentOffersNearby(dataNearby));
+      const {data: dataComments} = await api.get<Comment[]>(`${APIRoute.Comments}/${id}`);
+      dispatch(loadCurrentOfferComments(dataComments));
     } catch (error) {
       errorHandle(error);
       dispatch(redirectToRoute(AppRoute.NotFound));

@@ -1,26 +1,21 @@
-import { useAppSelector } from '../../hooks';
-import { getCurrentCity } from '../../store/data/selectors';
 import { Offers } from '../../types/offer';
 import PlaceCard from '../place-card/place-card';
 
 type PropsType = {
   offers: Offers;
-  onListItemHover?: (listItemName: string) => void;
   placeCardClass?: string;
   placeCardImageClass?: string;
   isFavoritePage?: boolean;
   widthImage?: number;
   heightImage?: number;
+  isMainPage?: boolean;
 }
 
-function ListCards({offers, onListItemHover, placeCardClass, placeCardImageClass, isFavoritePage, widthImage, heightImage}: PropsType): JSX.Element {
-  const currentCity = useAppSelector(getCurrentCity);
+function ListCards({offers, placeCardClass, placeCardImageClass, isFavoritePage, widthImage, heightImage, isMainPage}: PropsType): JSX.Element {
   return (
     <>
       {offers.map((offer) => (
-        offer.city.name === currentCity
-          ? <PlaceCard key={offer.id} offer={offer} onListItemHover={onListItemHover} placeCardClass={placeCardClass} placeCardImageClass={placeCardImageClass} isFavoritePage={isFavoritePage} widthImage={widthImage} heightImage={heightImage} />
-          : ''
+        <PlaceCard key={offer.id} offer={offer} placeCardClass={placeCardClass} placeCardImageClass={placeCardImageClass} isFavoritePage={isFavoritePage} isMainPage={isMainPage} widthImage={widthImage} heightImage={heightImage} />
       ))}
     </>
   );

@@ -18,11 +18,17 @@ import {
 } from '../../const';
 import useMap from '../../hooks/useMap';
 import 'leaflet/dist/leaflet.css';
+import {
+  useAppDispatch,
+  useAppSelector
+} from '../../hooks';
+import { getCurrentMapOffer } from '../../store/data/selectors';
+import { loadCurrentMapOffer } from '../../store/data/data';
 
 type MapProps = {
   city: City;
   offers: Offer[];
-  activeCard?: Offer | undefined;
+  offer?: Offer | undefined;
   height?: string;
 };
 
@@ -39,7 +45,11 @@ const currentCustomIcon = new Icon({
 });
 
 function Map(props: MapProps): JSX.Element {
-  const {city, offers, activeCard, height = '1158px'} = props;
+  const {city, offers, offer: currentOffer, height = '1158px'} = props;
+  const dispatch = useAppDispatch();
+
+  currentOffer && dispatch(loadCurrentMapOffer(currentOffer));
+  const currentMapOffer = useAppSelector(getCurrentMapOffer);
 
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
@@ -54,14 +64,14 @@ function Map(props: MapProps): JSX.Element {
 
         marker
           .setIcon(
-            activeCard !== undefined && offer.id === activeCard.id
+            currentMapOffer !== null && offer.id === currentMapOffer.id
               ? currentCustomIcon
               : defaultCustomIcon,
           )
           .addTo(map);
       });
     }
-  }, [map, offers, activeCard]);
+  }, [map, offers, currentMapOffer]);
 
   return <div style={{height: height}} ref={mapRef} />;
 }

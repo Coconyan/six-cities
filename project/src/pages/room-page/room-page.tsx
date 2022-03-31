@@ -10,7 +10,11 @@ import Logo from '../../components/logo/logo';
 import Map from '../../components/map/map';
 import PremiumMark from '../../components/premium-mark/premium-mark';
 import RoomReviewsList from '../../components/room-reviews-list/room-reviews-list';
-import { AppRoute, AuthorizationStatus, SPINNER_COLOR } from '../../const';
+import {
+  AppRoute,
+  AuthorizationStatus,
+  SPINNER_COLOR
+} from '../../const';
 import {
   useAppDispatch,
   useAppSelector
@@ -18,8 +22,6 @@ import {
 import {
   addOfferToFavoriteOfferPage,
   fetchCurrentOffer,
-  fetchCurrentOfferComments,
-  fetchCurrentOffersNearby,
   removeOfferFromFavoriteOfferPage
 } from '../../store/api-actions';
 import {
@@ -42,8 +44,6 @@ function RoomPage(): JSX.Element {
   useEffect(() => {
     if (offer === null || offer.id !== Number(id)) {
       dispatch(fetchCurrentOffer(Number(id)));
-      dispatch(fetchCurrentOffersNearby(Number(id)));
-      dispatch(fetchCurrentOfferComments(Number(id)));
     }
   }, [dispatch, id, offer, currentOffersNearby, currentOfferComments]);
 
@@ -161,9 +161,9 @@ function RoomPage(): JSX.Element {
               <Map
                 key={`${id}-offer`}
                 city={city}
+                offer={offer}
                 offers={currentOffersNearby !== null ? currentOffersNearby.slice(0, 3).concat(offer) : [offer]}
                 height={'580px'}
-                activeCard={offer}
               />
             }
           </section>

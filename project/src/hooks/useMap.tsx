@@ -17,6 +17,7 @@ function useMap(
 
   useEffect(() => {
     if (mapRef.current !== null && map === null) {
+      // mapRef.current.querySelector('.leaflet-marker-pane')?.remove(); //TODO отображение маркеров более 3
       const instance = new Map(mapRef.current, {
         center: {
           lat: city.location.latitude,

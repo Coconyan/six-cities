@@ -18,6 +18,7 @@ const store = mockStore({
   USER: {authorizationStatus: AuthorizationStatus.Auth},
   DATA: {
     cities: cities,
+    currentOffer: null,
   },
 });
 
@@ -26,11 +27,12 @@ const history = createMemoryHistory();
 describe('Component: PlaceCard', () => {
   it('should render FavoritesList correctly', () => {
     history.push(AppRoute.Root);
+    const offer = makeFakeOffer();
 
     render(
       <Provider store={store}>
         <HistoryRouter history={history}>
-          <PlaceCard offer={makeFakeOffer()} />
+          <PlaceCard offer={offer} />
         </HistoryRouter>
       </Provider>);
 
@@ -41,21 +43,19 @@ describe('Component: PlaceCard', () => {
 
   it('should call function onListItemHover when hover on article', () => {
     history.push(AppRoute.Root);
-    const onListItemHover = jest.fn();
+    const offer = makeFakeOffer();
 
     render(
       <Provider store={store}>
         <HistoryRouter history={history}>
           <PlaceCard
-            offer={makeFakeOffer()}
-            onListItemHover={onListItemHover}
+            offer={offer}
           />
         </HistoryRouter>
       </Provider>);
 
     userEvent.hover(screen.getByTestId('article-item'));
 
-    expect(onListItemHover).toBeCalled();
     expect(screen.getByText(/In bookmarks/i)).toBeInTheDocument();
     expect(screen.getByText(/Rating/i)).toBeInTheDocument();
   });
