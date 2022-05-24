@@ -1,7 +1,9 @@
 import request from 'axios';
 import { toast } from 'react-toastify';
 import { ErrorType } from '../types/error';
-import { HTTP_CODE } from '../const';
+import { AppRoute, HTTP_CODE } from '../const';
+import { store } from '../store';
+import { redirectToRoute } from '../store/actions';
 
 export const errorHandle = (error: ErrorType): void => {
   if (!request.isAxiosError(error)) {
@@ -12,15 +14,15 @@ export const errorHandle = (error: ErrorType): void => {
 
   if (response) {
     switch (response.status) {
-      case HTTP_CODE.BAD_REQUEST:
-        toast.info(response.data.error);
-        break;
       case HTTP_CODE.UNAUTHORIZED:
-        toast.info(response.data.error);
+        toast.info(response.statusText);
         break;
+      case HTTP_CODE.BAD_REQUEST:
       case HTTP_CODE.NOT_FOUND:
-        toast.info(response.data.error);
+        store.dispatch(redirectToRoute(AppRoute.NotFound));
+        toast.error(response.statusText);
         break;
+      default: toast.error('unknown error');
     }
   }
 };
