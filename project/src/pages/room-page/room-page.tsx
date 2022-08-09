@@ -27,6 +27,7 @@ import {
 import {
   getCurrentOffer,
   getCurrentOfferComments,
+  getCurrentOfferLoading,
   getCurrentOffersNearby
 } from '../../store/data/selectors';
 import { getAuthorizationStatus } from '../../store/user-process/selectors';
@@ -34,32 +35,33 @@ import firstLetterToUpperCase from '../../utils';
 
 function RoomPage(): JSX.Element {
   const offer = useAppSelector(getCurrentOffer);
+  const isLoading = useAppSelector(getCurrentOfferLoading);
   const currentOffersNearby = useAppSelector(getCurrentOffersNearby);
   const currentOfferComments = useAppSelector(getCurrentOfferComments);
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const {id} = useParams();
+  const { id } = useParams();
 
   useEffect(() => {
-    if (offer === null || offer.id !== Number(id)) {
+    if ((offer === null || offer.id !== Number(id)) && !isLoading) {
       dispatch(fetchCurrentOffer(Number(id)));
     }
-  }, [dispatch, id, offer, currentOffersNearby, currentOfferComments]);
+  }, [dispatch, id, offer, isLoading]);
 
-  if (!offer || offer.id !== Number(id)) {
+  if (!offer || offer.id !== Number(id) || isLoading) {
     return <SpinnerCircular color={SPINNER_COLOR} />;
   }
 
-  const {city, title, isPremium, rating, type, bedrooms, maxAdults, price, isFavorite, host, description, id: offerId} = offer;
-  const {name, isPro, avatarUrl} = host;
-  const favoriteClassName = `property__bookmark-button${isFavorite ? isFavorite && ' property__bookmark-button--active button' : ' button'}`;
+  const { city, title, isPremium, rating, type, bedrooms, maxAdults, price, isFavorite, host, description, id: offerId } = offer;
+  const { name, isPro, avatarUrl } = host;
+  const favoriteClassName = `property__bookmark-button${offer?.isFavorite ? offer?.isFavorite && ' property__bookmark-button--active button' : ' button'}`;
 
   const onFavoriteClick = () => {
     if (authorizationStatus === AuthorizationStatus.Auth) {
       isFavorite ? dispatch(removeOfferFromFavoriteOfferPage(offerId)) : dispatch(addOfferToFavoriteOfferPage(offerId));
     } else {
-      navigate(AppRoute.SignIn, {replace: true});
+      navigate(AppRoute.SignIn, { replace: true });
     }
   };
 
@@ -90,7 +92,7 @@ function RoomPage(): JSX.Element {
           </div>
           <div className="property__container container">
             <div className="property__wrapper">
-              {isPremium ? <PremiumMark classMark='property__mark'/> : ''}
+              {isPremium ? <PremiumMark classMark='property__mark' /> : ''}
               <div className="property__name-wrapper">
                 <h1 className="property__name">
                   {title}
@@ -104,7 +106,7 @@ function RoomPage(): JSX.Element {
               </div>
               <div className="property__rating rating">
                 <div className="property__stars rating__stars">
-                  <span style={{ width: `${rating * 20 }%` }} />
+                  <span style={{ width: `${rating * 20}%` }} />
                   <span className="visually-hidden">Rating</span>
                 </div>
                 <span className="property__rating-value rating__value">{rating}</span>
@@ -153,13 +155,13 @@ function RoomPage(): JSX.Element {
                   </p>
                 </div>
               </div>
-              {currentOfferComments !== null ? <RoomReviewsList comments={currentOfferComments}/> : ''}
+              {currentOfferComments !== null ? <RoomReviewsList comments={currentOfferComments} /> : ''}
             </div>
           </div>
           <section className="property__map map">
             {
               <Map
-                key={`${id}-offer`}
+                key={`${offer.id}-offer`}
                 city={city}
                 offer={offer}
                 offers={currentOffersNearby !== null ? currentOffersNearby.slice(0, 3).concat(offer) : [offer]}
@@ -172,11 +174,13 @@ function RoomPage(): JSX.Element {
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
             <div className="near-places__list places__list">
-              <ListCards
-                offers={currentOffersNearby !== null ? currentOffersNearby.slice(0, 3) : [offer]}
-                placeCardClass = '__card'
-                placeCardImageClass = 'near-places'
-              />
+              {
+                <ListCards
+                  offers={currentOffersNearby !== null ? currentOffersNearby.slice(0, 3) : [offer]}
+                  placeCardClass='__card'
+                  placeCardImageClass='near-places'
+                />
+              }
             </div>
           </section>
         </div>

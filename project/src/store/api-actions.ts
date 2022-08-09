@@ -33,7 +33,8 @@ import {
   loadCurrentOfferComments,
   loadCurrentOffersNearby,
   loadFavoriteOffers,
-  loadOffers
+  loadOffers,
+  setCurrentOfferLoading
 } from './data/data';
 import { requireAuthorization } from './user-process/user-process';
 
@@ -61,12 +62,14 @@ export const fetchCurrentOffer = createAsyncThunk<void, number, {
   'data/fetchCurrentOffer',
   async (id: number, {dispatch, extra: api}) => {
     try {
+      dispatch(setCurrentOfferLoading(true));
       const {data} = await api.get<Offer>(`${APIRoute.Offers}/${id}`);
       dispatch(loadCurrentOffer(data));
       const {data: dataNearby} = await api.get<Offers>(`${APIRoute.Offers}/${id}/nearby`);
       dispatch(loadCurrentOffersNearby(dataNearby));
       const {data: dataComments} = await api.get<Comment[]>(`${APIRoute.Comments}/${id}`);
       dispatch(loadCurrentOfferComments(dataComments));
+      dispatch(setCurrentOfferLoading(false));
     } catch (error) {
       errorHandle(error);
       dispatch(redirectToRoute(AppRoute.NotFound));

@@ -11,6 +11,7 @@ export type Data = {
   currentCity: string,
   offers: Offers,
   currentOffer: Offer | null,
+  currentOfferLoading: boolean,
   currentOffersNearby: Offers | null,
   currentOfferComments: Comment[] | null,
   currentMapOffer: Offer | null,

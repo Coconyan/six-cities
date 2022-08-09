@@ -10,6 +10,7 @@ export const getCities = (state: State): string[] => state[NameSpace.data].citie
 export const getCurrentCity = (state: State): string => state[NameSpace.data].currentCity;
 export const getOffers = (state: State): Offers => state[NameSpace.data].offers;
 export const getCurrentOffer = (state: State): Offer | null => state[NameSpace.data].currentOffer;
+export const getCurrentOfferLoading = (state: State): boolean | undefined => state[NameSpace.data].currentOfferLoading;
 export const getCurrentMapOffer = (state: State): Offer | null => state[NameSpace.data].currentMapOffer;
 export const getCurrentOffersNearby = (state: State): Offers | null => state[NameSpace.data].currentOffersNearby;
 export const getCurrentOfferComments = (state: State): Comment[] | null => state[NameSpace.data].currentOfferComments;

@@ -11,6 +11,7 @@ const initialState: Data = {
   currentCity: CITIES[0],
   offers: [],
   currentOffer: null,
+  currentOfferLoading: false,
   currentOffersNearby: null,
   currentOfferComments: null,
   currentMapOffer: null,
@@ -48,7 +49,10 @@ export const data = createSlice({
     loadFavoriteOffers: (state, action) => {
       state.favoriteOffers = action.payload;
     },
+    setCurrentOfferLoading: (state, action) => {
+      state.currentOfferLoading = action.payload;
+    },
   },
 });
 
-export const { changeCity, changeSortType, loadOffers, loadCurrentOffer, loadCurrentOfferComments, loadCurrentOffersNearby, loadFavoriteOffers, loadCurrentMapOffer } = data.actions;
+export const { changeCity, changeSortType, loadOffers, loadCurrentOffer, loadCurrentOfferComments, loadCurrentOffersNearby, loadFavoriteOffers, loadCurrentMapOffer, setCurrentOfferLoading } = data.actions;
