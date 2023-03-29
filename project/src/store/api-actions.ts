@@ -77,6 +77,27 @@ export const fetchCurrentOffer = createAsyncThunk<void, number, {
   },
 );
 
+export const fetchCurrentOfferWithoutLoading = createAsyncThunk<void, number, {
+  dispatch: AppDispatch,
+  state: State,
+  extra: AxiosInstance
+}>(
+  'data/fetchCurrentOffer',
+  async (id: number, {dispatch, extra: api}) => {
+    try {
+      const {data} = await api.get<Offer>(`${APIRoute.Offers}/${id}`);
+      dispatch(loadCurrentOffer(data));
+      const {data: dataNearby} = await api.get<Offers>(`${APIRoute.Offers}/${id}/nearby`);
+      dispatch(loadCurrentOffersNearby(dataNearby));
+      const {data: dataComments} = await api.get<Comment[]>(`${APIRoute.Comments}/${id}`);
+      dispatch(loadCurrentOfferComments(dataComments));
+    } catch (error) {
+      errorHandle(error);
+      dispatch(redirectToRoute(AppRoute.NotFound));
+    }
+  },
+);
+
 export const fetchCurrentOffersNearby = createAsyncThunk<void, number, {
   dispatch: AppDispatch,
   state: State,
@@ -168,7 +189,7 @@ export const addOfferToFavoriteOfferPage = createAsyncThunk<void, number, {
   async (offerId: number, {dispatch, extra: api}) => {
     try {
       await api.post<number>(`${APIRoute.Favorite}/${offerId}/${1}`);
-      dispatch((fetchCurrentOffer(offerId)));
+      dispatch(fetchCurrentOfferWithoutLoading(offerId));
       dispatch(fetchOffersAction());
     } catch (error) {
       errorHandle(error);
@@ -186,7 +207,7 @@ export const removeOfferFromFavorite = createAsyncThunk<void, number, {
     try {
       await api.post<number>(`${APIRoute.Favorite}/${offerId}/${0}`);
       dispatch(fetchOffersAction());
-      dispatch((fetchCurrentOffer(offerId)));
+      dispatch(fetchCurrentOfferWithoutLoading(offerId));
     } catch (error) {
       errorHandle(error);
     }
@@ -219,7 +240,7 @@ export const removeOfferFromFavoriteOfferPage = createAsyncThunk<void, number, {
   async (offerId: number, {dispatch, extra: api}) => {
     try {
       await api.post<number>(`${APIRoute.Favorite}/${offerId}/${0}`);
-      dispatch((fetchCurrentOffer(offerId)));
+      dispatch(fetchCurrentOfferWithoutLoading(offerId));
       dispatch(fetchOffersAction());
     } catch (error) {
       errorHandle(error);

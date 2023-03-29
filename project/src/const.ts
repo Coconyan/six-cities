@@ -49,6 +49,12 @@ export enum HTTP_CODE {
   NOT_FOUND = 404,
 }
 
+export enum HTTP_CODE_ERROR_TEXT {
+  BAD_REQUEST = 'Bad request',
+  UNAUTHORIZED = 'You are unauthorized, please log in',
+  NOT_FOUND = 'Page not found',
+}
+
 export enum COMMENTS_LENGTH {
   MIN = 50,
   MAX = 300,
